@@ -1,0 +1,9 @@
+[user]
+	name = Bogdan-Cristian Tătăroiu
+  email = b.tataroiu@gmail.com
+
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
