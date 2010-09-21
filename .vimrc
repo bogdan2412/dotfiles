@@ -1,30 +1,34 @@
 set nocompatible
 set backspace=indent,eol,start
-set autoindent
+set autoindent                          " Smart indentation
 set copyindent
-set hlsearch incsearch
-set showmatch
-set autoread
-set nowrap
-set expandtab tabstop=4 softtabstop=4
+set hlsearch incsearch                  " Incremental search, highlight all matches as you type
+set gdefault                            " Do substitutions globally by default
+set showmatch                           " Highlight matching brackets
+set autoread                            " Automatically reload open files when they've been edited.
+set nowrap                              " No wrapping
+set textwidth=79                        " Automatically line break when line gets longer than 79
+set colorcolumn=81
+set expandtab tabstop=4 softtabstop=4   " Spaces for tabs, indentation of 4
 set shiftwidth=4 shiftround
-set wildmode=longest,list
-set ruler
+set wildmode=longest,list               " Mimic normal <TAB> completion for vim autocomplete
+set ruler                               " Show line and column number
+set scrolloff=3                         " Keep 3 lines visible above and below cursor
 
 " Color scheme
 colorscheme evening
 set background=dark
 syntax on
 
-" Enable filetype plugins and indent features
-filetype on
-filetype plugin on
-filetype indent on
-
 " Use pathogen to easily modify the runtime path to include all
 " plugins under the ~/.vim/bundle directory
+filetype off
 call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
+
+" Enable filetype plugins and indent features
+filetype plugin on
+filetype indent on
 
 " Command-T plugin configuration: Make <CR> open file in new tab as default
 let g:CommandTAcceptSelectionTabMap = "<CR>"
