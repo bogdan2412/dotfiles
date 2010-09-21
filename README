@@ -1,0 +1,4 @@
+My configuration files for command-line tools.
+
+Just run bootstrap.sh and it will install everything in your home directory
+with symbolic links.
