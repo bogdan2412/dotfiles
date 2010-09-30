@@ -7,8 +7,6 @@ set gdefault                            " Do substitutions globally by default
 set showmatch                           " Highlight matching brackets
 set autoread                            " Automatically reload open files when they've been edited.
 set nowrap                              " No wrapping
-set textwidth=79                        " Automatically line break when line gets longer than 79
-set colorcolumn=81
 set expandtab tabstop=4 softtabstop=4   " Spaces for tabs, indentation of 4
 set shiftwidth=4 shiftround
 set wildmode=longest,list               " Mimic normal <TAB> completion for vim autocomplete
@@ -29,6 +27,11 @@ call pathogen#runtime_append_all_bundles()
 " Enable filetype plugins and indent features
 filetype plugin on
 filetype indent on
+
+" Automatically line break when line gets longer than 79 for code and scripting
+" languages. Also highlight existing longer lines in the file.
+autocmd FileType c,cpp,python,php,sh setlocal textwidth=79
+autocmd FileType c,cpp,python,php,sh let w:lengtherror=matchadd('ErrorMsg', '\%>79v.\+', -1)
 
 " Command-T plugin configuration: Make <CR> open file in new tab as default
 let g:CommandTAcceptSelectionTabMap = "<CR>"
@@ -102,26 +105,26 @@ map! <F5> <ESC>:tabprev<CR>
 map! <F6> <ESC>:tabnext<CR>
 
 " C/C++ compilation options
-autocmd filetype c set makeprg=gcc\ -DDEBUG\ -Wall\ -O2\ -o\ '%<'\ '%'\ -lm
-autocmd filetype cpp set makeprg=g++\ -DDEBUG\ -Wall\ -O2\ -o\ '%<'\ '%'\ -lm
+autocmd filetype c setlocal makeprg=gcc\ -DDEBUG\ -Wall\ -O2\ -o\ '%<'\ '%'\ -lm
+autocmd filetype cpp setlocal makeprg=g++\ -DDEBUG\ -Wall\ -O2\ -o\ '%<'\ '%'\ -lm
 " C/C++ keyboard mappings
-autocmd filetype c,cpp map <F8> :make<CR>:!time './%<'<CR>|
-map <F9> :make<CR>|
-map <F10> :!time './%<'<CR>|
+autocmd filetype c,cpp map <buffer> <F8> :make<CR>:!time './%<'<CR>|
+map <buffer> <F9> :make<CR>|
+map <buffer> <F10> :!time './%<'<CR>|
 
-map! <F8> <ESC>:make<CR>:!time './%<'<CR>|
-map! <F9> <ESC>:make<CR>|
-map! <F10> <ESC>:!time './%<'<CR>
+map! <buffer> <F8> <ESC>:make<CR>:!time './%<'<CR>|
+map! <buffer> <F9> <ESC>:make<CR>|
+map! <buffer> <F10> <ESC>:!time './%<'<CR>
 
 " Python keyboard mappings
-autocmd filetype python map <F8> :!python '%'<CR>|
-map! <F8> <ESC>:!python '%'<CR>|
+autocmd filetype python map <buffer> <F8> :!python '%'<CR>|
+map! <buffer> <F8> <ESC>:!python '%'<CR>|
 set ts=2 sts=2 sw=2
 
 " PHP keyboard mappings
-autocmd filetype php map <F8> :!php '%'<CR>|
-map! <F8> <ESC>:!php '%'<CR>
+autocmd filetype php map <buffer> <F8> :!php '%'<CR>|
+map! <buffer> <F8> <ESC>:!php '%'<CR>
 
 " Bash keyboard mappings
-autocmd filetype sh map <F8> :!bash '%'<CR>|
-map! <F8> <ESC>:!bash '%'<CR>
+autocmd filetype sh map <buffer> <F8> :!bash '%'<CR>|
+map! <buffer> <F8> <ESC>:!bash '%'<CR>
