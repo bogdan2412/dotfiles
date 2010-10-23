@@ -1,3 +1,6 @@
+[core]
+  editor = vim
+
 [user]
   name = Bogdan-Cristian Tătăroiu
   email = b.tataroiu@gmail.com
