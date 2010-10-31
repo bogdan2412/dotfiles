@@ -117,9 +117,9 @@ map! <buffer> <F9> <ESC>:make<CR>|
 map! <buffer> <F10> <ESC>:!time './%<'<CR>
 
 " Python keyboard mappings
-autocmd filetype python map <buffer> <F8> :!python '%'<CR>|
+autocmd filetype python setlocal ts=2 sts=2 sw=2|
+map <buffer> <F8> :!python '%'<CR>|
 map! <buffer> <F8> <ESC>:!python '%'<CR>|
-set ts=2 sts=2 sw=2
 
 " PHP keyboard mappings
 autocmd filetype php map <buffer> <F8> :!php '%'<CR>|
@@ -128,3 +128,32 @@ map! <buffer> <F8> <ESC>:!php '%'<CR>
 " Bash keyboard mappings
 autocmd filetype sh map <buffer> <F8> :!bash '%'<CR>|
 map! <buffer> <F8> <ESC>:!bash '%'<CR>
+
+" Toggle Wrap shortcut
+noremap <silent> <Leader>w :call ToggleWrap()<CR>
+function ToggleWrap()
+    if &wrap
+        echo "Wrap OFF"
+        setlocal nowrap
+        silent! nunmap <buffer> <Up>
+        silent! nunmap <buffer> <Down>
+        silent! nunmap <buffer> <Home>
+        silent! nunmap <buffer> <End>
+        silent! iunmap <buffer> <Up>
+        silent! iunmap <buffer> <Down>
+        silent! iunmap <buffer> <Home>
+        silent! iunmap <buffer> <End>
+    else
+        echo "Wrap ON"
+        setlocal wrap linebreak nolist
+        setlocal display+=lastline
+        noremap  <buffer> <silent> <Up>   gk
+        noremap  <buffer> <silent> <Down> gj
+        noremap  <buffer> <silent> <Home> g<Home>
+        noremap  <buffer> <silent> <End>  g<End>
+        inoremap <buffer> <silent> <Up>   <C-o>gk
+        inoremap <buffer> <silent> <Down> <C-o>gj
+        inoremap <buffer> <silent> <Home> <C-o>g<Home>
+        inoremap <buffer> <silent> <End>  <C-o>g<End>
+    endif
+endfunction
