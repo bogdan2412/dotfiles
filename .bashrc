@@ -27,7 +27,7 @@ function __git_status_flag {
 
 export PS1='[\[\e[0;32m\]\u@\h \[\e[0;34m\]\w\[\033[00m\]]\[\e[22;35m\]$(__git_ps1 " [\[\e[33m\]$(__git_status_flag)\[\e[35m\]%s] ")\[\033[00m\]\$ '
 
-alias fix_permissions='sudo find . -executable -print0 | xargs -0 sudo chmod o+rx; sudo find . ! -executable -print0 | xargs -0 sudo chmod o+r'
+alias fix_permissions='sudo find . -executable -print0 | sudo xargs -0 chmod o+rx; sudo find . ! -executable -print0 | sudo xargs -0 chmod o+r'
 
 _pip_completion()
 {

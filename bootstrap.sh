@@ -28,6 +28,9 @@ PACKAGES=".bashrc .profile"
 BEGIN_MARKER="# ---- DOT FILES BOOTSTRAPPING BEGIN ----"
 END_MARKER="# ---- DOT FILES BOOTSTRAPPING END ----"
 for PACKAGE in $PACKAGES; do
+  if [ ! -f "$HOME/$PACKAGE" ]; then
+    touch "$HOME/$PACKAGE"
+  fi
   matched_begin_markers=$(grep -x -c "$BEGIN_MARKER" "$HOME/$PACKAGE")
   matched_end_markers=$(grep -x -c "$END_MARKER" "$HOME/$PACKAGE")
   matched_markers=$(($matched_begin_markers + $matched_end_markers))
@@ -43,7 +46,6 @@ for PACKAGE in $PACKAGES; do
     echo "Warning: unable to remove existing snippets in $PACKAGE"
   fi
 
-  echo >> $HOME/$PACKAGE
   echo "$BEGIN_MARKER" >> $HOME/$PACKAGE
   cat $REPOSITORY_PATH/$PACKAGE >> $HOME/$PACKAGE
   echo "$END_MARKER" >> $HOME/$PACKAGE
