@@ -30,12 +30,16 @@ filetype indent on
 
 " Automatically line break when line gets longer than 79 for code and scripting
 " languages. Also highlight existing longer lines in the file.
-autocmd FileType c,cpp,python,php,sh setlocal textwidth=79
-autocmd FileType c,cpp,python,php,sh let w:lengtherror=matchadd('ErrorMsg', '\%>79v.\+', -1)
+autocmd FileType c,cpp,python,php,sh,matlab setlocal textwidth=79
+autocmd FileType c,cpp,python,php,sh,matlab let w:lengtherror=matchadd('ErrorMsg', '\%>79v.\+', -1)
+autocmd FileType matlab setlocal filetype=octave
 
 " Command-T plugin configuration: Make <CR> open file in new tab as default
 let g:CommandTAcceptSelectionTabMap = "<CR>"
 let g:CommandTAcceptSelectionMap = "<C-T>"
+
+" snipMate constants
+let g:snips_author = "Bogdan-Cristian Tataroiu <b.tataroiu@gmail.com>"
 
 " Activating omni-completion
 set omnifunc=syntaxcomplete#Complete
@@ -117,8 +121,7 @@ map! <buffer> <F9> <ESC>:make<CR>|
 map! <buffer> <F10> <ESC>:!time './%<'<CR>
 
 " Python keyboard mappings
-autocmd filetype python setlocal ts=2 sts=2 sw=2|
-map <buffer> <F8> :!python '%'<CR>|
+autocmd filetype python map <buffer> <F8> :!python '%'<CR>|
 map! <buffer> <F8> <ESC>:!python '%'<CR>|
 
 " PHP keyboard mappings
