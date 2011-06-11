@@ -2,7 +2,7 @@
 
 REPOSITORY_PATH=$(dirname $(readlink -f $0))
 
-PACKAGES=".gitconfig .vim .vimrc"
+PACKAGES=".emacs.d .gitconfig .vim .vimrc"
 
 echo "Installing all symlink packages"
 for PACKAGE in $PACKAGES; do
