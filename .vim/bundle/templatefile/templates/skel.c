@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include "@FILE@.h"
 
-int main()
-{
+int main() {
 
     return 0;
 }
