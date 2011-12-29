@@ -1,6 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (add-to-list 'load-path "~/.emacs.d/vendor/auto-complete-1.3.1")
+(add-to-list 'load-path "~/.emacs.d/vendor/sml-mode-4.1")
 (add-to-list 'load-path "~/.emacs.d/vendor/yasnippet-0.6.1c")
 
 (defun coding-mode ()
@@ -30,6 +31,9 @@
 
 ;; Highlight trailing spaces
 (setq-default show-trailing-whitespace t)
+
+(setq-default require-final-newline t)  ;; Require final newline
+
 ;; Automatically delete trailing spaces before saving files
 (add-hook 'before-save-hook
           'delete-trailing-whitespace)
@@ -61,9 +65,9 @@
     (load (expand-file-name "~/.emacs.d/elpa/package.el"))
   (package-initialize))
 
-(load-library "osx-config")             ;; OS X specific configuration options
+(require 'osx-config)                   ;; OS X specific configuration options
 
-(load-library "indentation-config")     ;; (Auto)indentation options
+(require 'indentation-config)           ;; (Auto)indentation options
 
 (require 'auto-complete)                ;; Autocomplete mode
 (global-auto-complete-mode t)
@@ -82,19 +86,12 @@
 (global-set-key (kbd "M-S-<down>") 'shrink-window)
 (global-set-key (kbd "M-S-<up>") 'enlarge-window)
 
-;; Customized settings
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(c-backspace-function (quote backward-delete-whitespace-to-column))
- '(c-default-style (quote ((c-mode . "stroustrup") (c++-mode . "stroustrup") (java-mode . "java") (awk-mode . "awk") (other . "gnu"))))
- '(octave-auto-indent t)
- '(octave-block-offset 4))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
+;; Major mode configurations
+(require 'php)                          ;; PHP and XHP major mode
+
+;; ML major mode
+(autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
+(add-to-list 'auto-mode-alist '("\\.ml$" . sml-mode))
+
+;; Octave major mode
+(add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
