@@ -3,6 +3,7 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/auto-complete-1.3.1")
 (add-to-list 'load-path "~/.emacs.d/vendor/sml-mode-4.1")
 (add-to-list 'load-path "~/.emacs.d/vendor/yasnippet-0.6.1c")
+(add-to-list 'load-path "~/.emacs.d/vendor/color-theme-6.6.0")
 
 (defun coding-mode ()
   (turn-on-auto-fill)
@@ -67,6 +68,10 @@
 
 (require 'osx-config)                   ;; OS X specific configuration options
 
+(require 'color-theme)                  ;; Color theme support
+(color-theme-initialize)
+(color-theme-dark-laptop)
+
 (xterm-mouse-mode t)
 (global-set-key [mouse-4] '(lambda ()
                              (interactive)
@@ -98,7 +103,9 @@
 
 ;; Major mode configurations
 (require 'php)                          ;; PHP and XHP major mode
+
 (require 'piglatin-mode)
+(add-to-list 'auto-mode-alist '("\\.piglet$" . piglatin-mode))
 
 ;; ML major mode
 (autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
