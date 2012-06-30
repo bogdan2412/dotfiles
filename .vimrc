@@ -12,9 +12,10 @@ set shiftwidth=4 shiftround
 set wildmode=longest,list               " Mimic normal <TAB> completion for vim autocomplete
 set ruler                               " Show line and column number
 set scrolloff=3                         " Keep 3 lines visible above and below cursor
+set mouse=a                             " Enable all mouse functions in terminal
 
 " Color scheme
-colorscheme evening
+colorscheme default
 set background=dark
 syntax on
 
@@ -32,7 +33,11 @@ filetype indent on
 " languages. Also highlight existing longer lines in the file.
 autocmd FileType c,cpp,python,php,sh,matlab setlocal textwidth=79
 autocmd FileType c,cpp,python,php,sh,matlab let w:lengtherror=matchadd('ErrorMsg', '\%>79v.\+', -1)
+" Some more automatic file type detection
 autocmd FileType matlab setlocal filetype=octave
+augroup filetypedetect
+    au BufNewFile,BufRead *.pig,*.piglet set filetype=pig syntax=pig
+augroup END
 
 " Command-T plugin configuration: Make <CR> open file in new tab as default
 let g:CommandTAcceptSelectionTabMap = "<CR>"
@@ -109,10 +114,10 @@ map! <F5> <ESC>:tabprev<CR>
 map! <F6> <ESC>:tabnext<CR>
 
 " C/C++ compilation options
-autocmd filetype c setlocal makeprg=gcc\ -DDEBUG\ -Wall\ -O2\ -o\ '%<'\ '%'\ -lm
-autocmd filetype cpp setlocal makeprg=g++\ -DDEBUG\ -Wall\ -O2\ -o\ '%<'\ '%'\ -lm
+autocmd FileType c setlocal makeprg=gcc\ -DDEBUG\ -Wall\ -O2\ -o\ '%<'\ '%'\ -lm
+autocmd FileType cpp setlocal makeprg=g++\ -DDEBUG\ -Wall\ -O2\ -o\ '%<'\ '%'\ -lm
 " C/C++ keyboard mappings
-autocmd filetype c,cpp map <buffer> <F8> :make<CR>:!time './%<'<CR>|
+autocmd FileType c,cpp map <buffer> <F8> :make<CR>:!time './%<'<CR>|
 map <buffer> <F9> :make<CR>|
 map <buffer> <F10> :!time './%<'<CR>|
 
@@ -121,15 +126,15 @@ map! <buffer> <F9> <ESC>:make<CR>|
 map! <buffer> <F10> <ESC>:!time './%<'<CR>
 
 " Python keyboard mappings
-autocmd filetype python map <buffer> <F8> :!python '%'<CR>|
+autocmd FileType python map <buffer> <F8> :!python '%'<CR>|
 map! <buffer> <F8> <ESC>:!python '%'<CR>|
 
 " PHP keyboard mappings
-autocmd filetype php map <buffer> <F8> :!php '%'<CR>|
+autocmd FileType php map <buffer> <F8> :!php '%'<CR>|
 map! <buffer> <F8> <ESC>:!php '%'<CR>
 
 " Bash keyboard mappings
-autocmd filetype sh map <buffer> <F8> :!bash '%'<CR>|
+autocmd FileType sh map <buffer> <F8> :!bash '%'<CR>|
 map! <buffer> <F8> <ESC>:!bash '%'<CR>
 
 " Toggle Wrap shortcut
