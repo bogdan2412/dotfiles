@@ -103,6 +103,7 @@
 ;; ML major mode
 (autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
 (add-to-list 'auto-mode-alist '("\\.ml$" . sml-mode))
+(add-to-list 'auto-mode-alist '("\\.sml$" . sml-mode))
 
 ;; Octave major mode
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
