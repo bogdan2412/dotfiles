@@ -67,6 +67,16 @@
 
 (require 'osx-config)                   ;; OS X specific configuration options
 
+(xterm-mouse-mode t)
+(global-set-key [mouse-4] '(lambda ()
+                             (interactive)
+                             (scroll-down 1)))
+(global-set-key [mouse-5] '(lambda ()
+                             (interactive)
+                             (scroll-up 1)))
+(defun track-mouse (e))
+(setq mouse-sel-mode t)
+
 (require 'indentation-config)           ;; (Auto)indentation options
 
 (require 'auto-complete)                ;; Autocomplete mode
@@ -88,6 +98,7 @@
 
 ;; Major mode configurations
 (require 'php)                          ;; PHP and XHP major mode
+(require 'piglatin-mode)
 
 ;; ML major mode
 (autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
