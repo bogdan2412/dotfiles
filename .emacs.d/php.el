@@ -1,6 +1,6 @@
 ;; PHP programming style
 (defconst php-style
-  '((c-basic-offset . 2)
+  '((c-basic-offset . 4)
     (c-offsets-alist . (
                         (arglist-intro . +)
                         (case-label . +)

@@ -1,11 +1,12 @@
 #include <cstdio>
+#include <cassert>
 
 using namespace std;
 
 int main() {
-    freopen("@FILE@.in", "rt", stdin);
+    assert(freopen("@FILE@.in", "rt", stdin));
 #ifndef DEBUG
-    freopen("@FILE@.out", "wt", stdout);
+    assert(freopen("@FILE@.out", "wt", stdout));
 #endif
 
     return 0;
