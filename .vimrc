@@ -36,7 +36,8 @@ autocmd FileType c,cpp,python,php,sh,matlab let w:lengtherror=matchadd('ErrorMsg
 " Some more automatic file type detection
 autocmd FileType matlab setlocal filetype=octave
 augroup filetypedetect
-    au BufNewFile,BufRead *.pig,*.piglet set filetype=pig syntax=pig
+    au BufNewFile,BufRead *.pig,*.piglet setlocal filetype=pig syntax=pig
+    au BufNewFile,BufRead *.thrift setlocal filetype=thrift
 augroup END
 
 " Command-T plugin configuration: Make <CR> open file in new tab as default

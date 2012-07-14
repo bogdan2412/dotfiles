@@ -107,6 +107,8 @@
 (require 'piglatin-mode)
 (add-to-list 'auto-mode-alist '("\\.piglet$" . piglatin-mode))
 
+(require 'thrift-mode)
+
 ;; ML major mode
 (autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
 (add-to-list 'auto-mode-alist '("\\.ml$" . sml-mode))
