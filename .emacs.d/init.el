@@ -1,8 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/vendor")
-(add-to-list 'load-path "~/.emacs.d/vendor/auto-complete-1.3.1")
 (add-to-list 'load-path "~/.emacs.d/vendor/sml-mode-4.1")
-(add-to-list 'load-path "~/.emacs.d/vendor/yasnippet-0.6.1c")
 (add-to-list 'load-path "~/.emacs.d/vendor/color-theme-6.6.0")
 
 (defun coding-mode ()
@@ -62,9 +60,10 @@
  ido-enable-flex-matching t)            ;; Enable fuzzy matching for ido
 (ido-mode)                              ;; Enable ido
 
-(when                                   ;; Load Emacs Lisp Package Archive
-    (load (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
 
 (require 'osx-config)                   ;; OS X specific configuration options
 
@@ -90,7 +89,7 @@
 ;; Enable YASnippet
 (require 'yasnippet)
 (yas/initialize)
-(yas/load-directory "~/.emacs.d/vendor/yasnippet-0.6.1c/snippets")
+(yas/load-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets")
 
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings 'meta)) ;; Enable keybindings for easily
