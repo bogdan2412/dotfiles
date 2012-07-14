@@ -108,6 +108,8 @@
 
 (require 'thrift-mode)
 
+(require 'scala-mode)
+
 ;; ML major mode
 (autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
 (add-to-list 'auto-mode-alist '("\\.ml$" . sml-mode))
