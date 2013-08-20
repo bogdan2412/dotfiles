@@ -25,16 +25,21 @@ function __git_status_flag {
   echo "${state}${remote}${spacer}"
 }
 
-export PS1='[\[\e[0;32m\]\u@\h \[\e[0;34m\]\w\[\033[00m\]]\[\e[22;35m\]$(__git_ps1 " [\[\e[33m\]$(__git_status_flag)\[\e[35m\]%s] ")\[\033[00m\]\$ '
+function hg_branch() {
+    hg branch 2> /dev/null | awk '{print " ["$1"] "}'
+}
 
-_pip_completion()
-{
+export PS1='[\[\e[0;32m\]\u@\h \[\e[0;34m\]\w\[\033[00m\]]\[\e[22;35m\]$(hg_branch)$(__git_ps1 " [\[\e[33m\]$(__git_status_flag)\[\e[35m\]%s] ")\[\033[00m\]\$ '
+
+_pip_completion() {
     COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
                    COMP_CWORD=$COMP_CWORD \
                    PIP_AUTO_COMPLETE=1 $1 ) )
 }
 complete -o default -F _pip_completion pip
 
+
+alias ec='emacsclient -c'
 alias fix_permissions='sudo find . -executable -exec chmod o+rx {} +; sudo find . ! -executable -exec chmod o+r {} +'
 alias py_web='source ~/Projects/python-envs/web/bin/activate'
 alias py_pypy='source ~/Projects/python-envs/pypy/bin/activate'
