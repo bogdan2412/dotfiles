@@ -13,6 +13,7 @@ set wildmode=longest,list               " Mimic normal <TAB> completion for vim 
 set ruler                               " Show line and column number
 set scrolloff=3                         " Keep 3 lines visible above and below cursor
 set mouse=a                             " Enable all mouse functions in terminal
+set number
 
 " Color scheme
 colorscheme default
