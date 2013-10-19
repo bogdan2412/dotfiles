@@ -41,5 +41,4 @@ complete -o default -F _pip_completion pip
 
 alias ec='emacsclient -c'
 alias fix_permissions='sudo find . -executable -exec chmod o+rx {} +; sudo find . ! -executable -exec chmod o+r {} +'
-alias py_web='source ~/Projects/python-envs/web/bin/activate'
-alias py_pypy='source ~/Projects/python-envs/pypy/bin/activate'
+alias ccat='pygmentize -g'
