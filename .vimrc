@@ -99,10 +99,10 @@ function PostAutocompleteInit()
     return ""
 endfunction
 
-inoremap <expr> <silent>  <CR> pumvisible() ? '<C-Y><C-R>=CheckForAutocomplete()<CR>' : '<CR>'
-inoremap <expr> <silent> <TAB> pumvisible() ? '<C-Y><C-R>=CheckForAutocomplete()<CR>' : '<TAB>'
-inoremap <expr> <silent>     ( pumvisible() ? '<C-Y><C-R>=CheckForAutocomplete("(")<CR>' : '('
-inoremap <expr> <silent>     . pumvisible() ? '<C-Y><C-R>=CheckForAutocomplete(".")<CR>' : '.<C-R>=CheckForAutocomplete()<CR>'
+"inoremap <expr> <silent>  <CR> pumvisible() ? '<C-Y><C-R>=CheckForAutocomplete()<CR>' : '<CR>'
+"inoremap <expr> <silent> <TAB> pumvisible() ? '<C-Y><C-R>=CheckForAutocomplete()<CR>' : '<TAB>'
+"inoremap <expr> <silent>     ( pumvisible() ? '<C-Y><C-R>=CheckForAutocomplete("(")<CR>' : '('
+"inoremap <expr> <silent>     . pumvisible() ? '<C-Y><C-R>=CheckForAutocomplete(".")<CR>' : '.<C-R>=CheckForAutocomplete()<CR>'
 
 " Common keyboard mappings
 map <F2> :w<CR>

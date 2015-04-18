@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/vendor")
 (add-to-list 'load-path "~/.emacs.d/vendor/sml-mode-4.1")
 (add-to-list 'load-path "~/.emacs.d/vendor/color-theme-6.6.0")
@@ -88,8 +88,7 @@
 
 ;; Enable YASnippet
 (require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets")
+(yas-global-mode 1)
 
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings 'meta)) ;; Enable keybindings for easily
@@ -110,10 +109,32 @@
 
 (require 'scala-mode)
 
+;; Ocaml major mode
+(autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
+(autoload 'camldebug "camldebug" "Run the Caml debugger" t)
+(autoload 'tuareg-imenu-set-imenu "tuareg-imenu"
+  "Configuration of imenu for tuareg" t)
+(add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
+(setq auto-mode-alist
+      (append '(("\\.ml[ily]?$" . tuareg-mode)
+                ("\\.topml$" . tuareg-mode))
+              auto-mode-alist))
+
 ;; ML major mode
 (autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
-(add-to-list 'auto-mode-alist '("\\.ml$" . sml-mode))
 (add-to-list 'auto-mode-alist '("\\.sml$" . sml-mode))
 
 ;; Octave major mode
 (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ispell-program-name "/usr/local/bin/aspell"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
