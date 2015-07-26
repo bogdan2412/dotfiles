@@ -38,6 +38,10 @@ _pip_completion() {
 }
 complete -o default -F _pip_completion pip
 
+function fix_permissions() {
+  sudo find . -executable -exec chmod o+rx {} + &&
+  sudo find . ! -executable -exec chmod o+r {} +
+}
+
 alias ec='emacsclient -c'
-alias fix_permissions='sudo find . -executable -exec chmod o+rx {} +; sudo find . ! -executable -exec chmod o+r {} +'
 alias ccat='pygmentize -g'

@@ -79,3 +79,11 @@ bindkey -e
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern root)
 ZSH_HIGHLIGHT_PATTERNS+=('rm *' 'fg=white,bold,bg=red'
                          'sudo *' 'standout')
+
+function fix_permissions() {
+  sudo find . -executable -exec chmod o+rx {} + &&
+  sudo find . ! -executable -exec chmod o+r {} +
+}
+
+alias ec='emacsclient -c'
+alias ccat='pygmentize -g'
