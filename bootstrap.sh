@@ -2,7 +2,7 @@
 
 REPOSITORY_PATH=$(dirname $(readlink -f $0))
 
-PACKAGES=".emacs.d .gitconfig .tmux.conf .vim .vimrc .zsh .zshrc"
+PACKAGES=".emacs.d .gitconfig .tmux.conf .vim .vimrc .zsh"
 
 echo "Installing all symlink packages"
 for PACKAGE in $PACKAGES; do
@@ -24,7 +24,7 @@ rm Makefile mkmf.log *.o
 cd $OLDPWD
 
 echo "Installing all snippet packages"
-PACKAGES=".bashrc .profile"
+PACKAGES=".bashrc .profile .zshrc"
 BEGIN_MARKER="# ---- DOT FILES BOOTSTRAPPING BEGIN ----"
 END_MARKER="# ---- DOT FILES BOOTSTRAPPING END ----"
 for PACKAGE in $PACKAGES; do
@@ -41,7 +41,7 @@ for PACKAGE in $PACKAGES; do
     end_line=$(grep -x -n "$END_MARKER" "$HOME/$PACKAGE")
     end_line=${end_line%%:*}
 
-    sed -i "$begin_line,$end_line d" $HOME/$PACKAGE
+    sed -i.bak "$begin_line,$end_line d" $HOME/$PACKAGE
   elif [ "$matched_markers" != "0" ]; then
     echo "Warning: unable to remove existing snippets in $PACKAGE"
   fi
@@ -50,5 +50,17 @@ for PACKAGE in $PACKAGES; do
   cat $REPOSITORY_PATH/$PACKAGE >> $HOME/$PACKAGE
   echo "$END_MARKER" >> $HOME/$PACKAGE
 done
+
+if [ -h "$HOME/.zprofile" ]; then
+  rm "$HOME/.zprofile"
+fi
+if [ -e "$HOME/.zprofile" ]; then
+  echo "$HOME/.zprofile already exists."
+else
+  ln -s "$HOME/.profile" "$HOME/.zprofile"
+fi
+
+echo "Installing powerline fonts"
+source $REPOSITORY_PATH/fonts/install.sh
 
 echo "Done. Have fun!"
