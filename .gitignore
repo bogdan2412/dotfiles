@@ -3,4 +3,5 @@
 .vim/bundle/command-t/ruby/command-t/ext.so
 .emacs.d/ac-comphist.dat
 .emacs.d/auto-save-list
+.emacs.d/ido.last
 *.elc
