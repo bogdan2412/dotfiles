@@ -2,7 +2,7 @@
 
 REPOSITORY_PATH=$(dirname $(readlink -f $0))
 
-PACKAGES=".emacs.d .gitconfig .tmux.conf .vim .vimrc .zsh"
+PACKAGES=".config/awesome .emacs.d .gitconfig .tmux.conf .vim .vimrc .zsh"
 
 echo "Installing all symlink packages"
 for PACKAGE in $PACKAGES; do
