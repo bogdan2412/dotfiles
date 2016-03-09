@@ -1,6 +1,8 @@
 .vim/.netrwhist
 .vim/bundle/command-t/ruby/command-t/ext.bundle
 .vim/bundle/command-t/ruby/command-t/ext.so
+.emacs.d/elpa/archives
+.emacs.d/elpa/gnupg
 .emacs.d/ac-comphist.dat
 .emacs.d/auto-save-list
 .emacs.d/ido.last
