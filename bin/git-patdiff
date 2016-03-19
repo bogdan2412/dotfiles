@@ -1,0 +1,8 @@
+#!/bin/bash
+
+patdiff "$2" "$5" -alt-old "$3 $1 $4" -alt-new "$6 $1 $7"
+RETURN_CODE=$?
+if [ $RETURN_CODE -eq 0 -o $RETURN_CODE -eq 1 ]; then
+  exit 0
+fi
+exit $RETURN_CODE

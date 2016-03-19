@@ -10,3 +10,6 @@
   status = auto
   branch = auto
   interactive = auto
+
+[diff]
+  external = git-patdiff

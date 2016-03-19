@@ -47,3 +47,11 @@ function ec {
   emacsclient -c "$@" &
 }
 alias ccat='pygmentize -g'
+function git {
+  if [[ "$1" == "log" ]]; then
+    shift;
+    command git log --ext-diff "$@"
+  else
+    command git "$@"
+  fi
+}
