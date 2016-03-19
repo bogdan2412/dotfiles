@@ -6,7 +6,7 @@ if [[ $1 == "--no-spacemacs" ]]; then
   SPACEMACS=false
 fi
 
-PACKAGES=".config/awesome .emacs.d .gitconfig .tmux.conf .vim .vimrc .zsh"
+PACKAGES="bin/git-patdiff .config/awesome .emacs.d .gitconfig .tmux.conf .vim .vimrc .zsh"
 
 echo "Installing all symlink packages"
 function install_link {
@@ -19,6 +19,7 @@ function install_link {
     echo "$DESTINATION already exists."
     return 1
   fi
+  mkdir -p $(dirname "$DESTINATION")
   ln -s "$SOURCE" "$DESTINATION"
 }
 
