@@ -1,19 +1,43 @@
 #!/bin/bash
 
 REPOSITORY_PATH=$(dirname $(readlink -f $0))
+SPACEMACS=true
+if [[ $1 == "--no-spacemacs" ]]; then
+  SPACEMACS=false
+fi
 
 PACKAGES=".config/awesome .emacs.d .gitconfig .tmux.conf .vim .vimrc .zsh"
 
 echo "Installing all symlink packages"
+function install_link {
+  SOURCE=$1
+  DESTINATION=$2
+  if [ -h "$DESTINATION" ]; then
+    rm "$DESTINATION"
+  fi
+  if [ -e "$DESTINATION" ]; then
+    echo "$DESTINATION already exists."
+    return 1
+  fi
+  ln -s "$SOURCE" "$DESTINATION"
+}
+
 for PACKAGE in $PACKAGES; do
-  if [ -h "$HOME/$PACKAGE" ]; then
-    rm "$HOME/$PACKAGE"
+  if [[ "$PACKAGE" = ".emacs.d" ]]; then
+    if $SPACEMACS; then
+      install_link \
+        "$REPOSITORY_PATH/.emacs.d-with-spacemacs" "$HOME/.emacs.d"
+      install_link \
+        "$REPOSITORY_PATH/.spacemacs" "$HOME/.spacemacs"
+      install_link \
+        "$REPOSITORY_PATH/.spacemacs-layer" "$HOME/.emacs.d/private/bogdan"
+    else
+      install_link \
+        "$REPOSITORY_PATH/.emacs.d-without-spacemacs" "$HOME/.emacs.d"
+    fi
+  else
+    install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
   fi
-  if [ -e "$HOME/$PACKAGE" ]; then
-    echo "$HOME/$PACKAGE already exists."
-    continue
-  fi
-  ln -s "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
 done
 
 echo "Compiling Command-T plugin in vim package"
