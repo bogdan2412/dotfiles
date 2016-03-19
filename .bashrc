@@ -43,5 +43,7 @@ function fix_permissions() {
   sudo find . ! -executable -exec chmod o+r {} +
 }
 
-alias ec='emacsclient -c'
+function ec {
+  emacsclient -c "$@" &
+}
 alias ccat='pygmentize -g'
