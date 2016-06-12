@@ -13,3 +13,5 @@
 
 [diff]
   external = git-patdiff
+[push]
+	default = simple
