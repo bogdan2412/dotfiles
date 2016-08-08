@@ -92,7 +92,8 @@ end
 _awesome_quit = awesome.quit
 awesome.quit = function()
     if os.getenv("DESKTOP_SESSION") == "awesome-gnome" then
-       os.execute("/usr/bin/gnome-session-quit")
+        os.execute("/usr/bin/gnome-session-quit --logout --no-prompt")
+        _awesome_quit()
     else
         _awesome_quit()
     end
