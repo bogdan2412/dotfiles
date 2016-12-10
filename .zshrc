@@ -88,7 +88,10 @@ function fix_permissions() {
 function ec {
   emacsclient -c "$@" &
 }
+
 alias ccat='pygmentize -g'
+alias ls='ls --color'
+
 function git {
   if [[ "$1" == "log" ]]; then
     shift;
