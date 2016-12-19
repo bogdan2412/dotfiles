@@ -1,2 +1,2 @@
 export PATH="$HOME/bin:$PATH"
-umask 0027
+umask 0022
