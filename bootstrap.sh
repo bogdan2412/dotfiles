@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -euo pipefail
+
 REPOSITORY_PATH=$(dirname $(readlink -f $0))
 SPACEMACS=true
-if [[ $1 == "--no-spacemacs" ]]; then
+if [[ ${1:-} == "--no-spacemacs" ]]; then
   SPACEMACS=false
 fi
 
