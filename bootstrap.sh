@@ -58,8 +58,8 @@ for PACKAGE in $PACKAGES; do
   if [ ! -f "$HOME/$PACKAGE" ]; then
     touch "$HOME/$PACKAGE"
   fi
-  matched_begin_markers=$(grep -x -c "$BEGIN_MARKER" "$HOME/$PACKAGE")
-  matched_end_markers=$(grep -x -c "$END_MARKER" "$HOME/$PACKAGE")
+  matched_begin_markers=$(grep -x -c "$BEGIN_MARKER" "$HOME/$PACKAGE" || true)
+  matched_end_markers=$(grep -x -c "$END_MARKER" "$HOME/$PACKAGE" || true)
   matched_markers=$(($matched_begin_markers + $matched_end_markers))
   if [ "$matched_begin_markers" == "1" -a "$matched_end_markers" == "1" ]; then
     # Try and remove already installed snippet.
