@@ -1,17 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
+set -eu
 
 REPOSITORY_PATH=$(dirname $(readlink -f $0))
 SPACEMACS=true
-if [[ ${1:-} == "--no-spacemacs" ]]; then
+if [ ${1:-} -eq "--no-spacemacs" ]; then
   SPACEMACS=false
 fi
 
 PACKAGES="bin/git-patdiff .config/awesome .emacs.d .gitconfig .tmux.conf .vim .vimrc .zsh"
 
 echo "Installing all symlink packages"
-function install_link {
+install_link () {
   SOURCE=$1
   DESTINATION=$2
   if [ -h "$DESTINATION" ]; then
@@ -26,7 +26,7 @@ function install_link {
 }
 
 for PACKAGE in $PACKAGES; do
-  if [[ "$PACKAGE" = ".emacs.d" ]]; then
+  if [ "$PACKAGE" -eq ".emacs.d" ]; then
     if $SPACEMACS; then
       install_link \
         "$REPOSITORY_PATH/.emacs.d-with-spacemacs" "$HOME/.emacs.d"
@@ -88,6 +88,6 @@ else
 fi
 
 echo "Installing powerline fonts"
-source $REPOSITORY_PATH/fonts/install.sh
+$REPOSITORY_PATH/fonts/install.sh
 
 echo "Done. Have fun!"
