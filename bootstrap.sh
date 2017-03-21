@@ -4,7 +4,7 @@ set -eu
 
 REPOSITORY_PATH=$(dirname $(readlink -f $0))
 SPACEMACS=true
-if [ ${1:-} -eq "--no-spacemacs" ]; then
+if [ "${1:-}" = "--no-spacemacs" ]; then
   SPACEMACS=false
 fi
 
@@ -26,7 +26,7 @@ install_link () {
 }
 
 for PACKAGE in $PACKAGES; do
-  if [ "$PACKAGE" -eq ".emacs.d" ]; then
+  if [ "$PACKAGE" = ".emacs.d" ]; then
     if $SPACEMACS; then
       install_link \
         "$REPOSITORY_PATH/.emacs.d-with-spacemacs" "$HOME/.emacs.d"
