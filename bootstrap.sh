@@ -61,7 +61,7 @@ for PACKAGE in $PACKAGES; do
   matched_begin_markers=$(grep -x -c "$BEGIN_MARKER" "$HOME/$PACKAGE" || true)
   matched_end_markers=$(grep -x -c "$END_MARKER" "$HOME/$PACKAGE" || true)
   matched_markers=$(($matched_begin_markers + $matched_end_markers))
-  if [ "$matched_begin_markers" == "1" -a "$matched_end_markers" == "1" ]; then
+  if [ "$matched_begin_markers" -eq 1 -a "$matched_end_markers" -eq 1 ]; then
     # Try and remove already installed snippet.
     begin_line=$(grep -x -n "$BEGIN_MARKER" "$HOME/$PACKAGE")
     begin_line=${begin_line%%:*}
@@ -69,7 +69,7 @@ for PACKAGE in $PACKAGES; do
     end_line=${end_line%%:*}
 
     sed -i.bak "$begin_line,$end_line d" $HOME/$PACKAGE
-  elif [ "$matched_markers" != "0" ]; then
+  elif [ "$matched_markers" -ne 0 ]; then
     echo "Warning: unable to remove existing snippets in $PACKAGE"
   fi
 
