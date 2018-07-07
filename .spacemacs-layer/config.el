@@ -25,3 +25,26 @@
 
 (custom-set-variables
  '(ocp-indent-config "JaneStreet"))
+
+(defun ocaml-autoformat ()
+  "Before saving a .ml or .mli file, format it"
+  (interactive)
+  (when (eq major-mode 'tuareg-mode)
+    (progn
+      (setq old-point (point))
+      (setq old-window-start (window-start))
+      (setq command "set -euo pipefail; ocamlformat /dev/stdin | ocp-indent -c JaneStreet")
+      (setq temporary-buffer (get-buffer-create "*ocamlformat output*"))
+      (with-current-buffer temporary-buffer (erase-buffer))
+      (setq return_code (call-shell-region
+                         (point-min) (point-max) command nil temporary-buffer))
+      (if (eq return_code 0)
+          (progn
+            (erase-buffer)
+            (insert-buffer-substring temporary-buffer))
+        (message (concat "ocamlformat output:\n"
+                         (with-current-buffer temporary-buffer (buffer-string)))))
+      (goto-char old-point)
+      (set-window-start nil old-window-start))))
+
+(add-hook 'before-save-hook 'ocaml-autoformat)
