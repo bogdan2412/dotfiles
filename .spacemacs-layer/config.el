@@ -33,7 +33,10 @@
     (progn
       (setq old-point (point))
       (setq old-window-start (window-start))
-      (setq command "set -euo pipefail; ocamlformat /dev/stdin | ocp-indent -c JaneStreet")
+      (setq is-interface (if buffer-file-name (numberp (string-match "\.mli$" buffer-file-name)) nil))
+      (setq ocamlformat-arg (if is-interface "--intf" "--impl"))
+      (setq command
+            (concat "set -euo pipefail; ocamlformat " ocamlformat-arg " /dev/stdin | ocp-indent -c JaneStreet"))
       (setq temporary-buffer (get-buffer-create "*ocamlformat output*"))
       (with-current-buffer temporary-buffer (erase-buffer))
       (setq return_code (call-shell-region
