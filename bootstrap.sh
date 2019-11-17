@@ -8,7 +8,7 @@ if [ "${1:-}" = "--no-spacemacs" ]; then
   SPACEMACS=false
 fi
 
-PACKAGES="bin/git-patdiff .config/awesome .config/gtk-3.0/settings.ini .emacs.d .gitconfig .gtkrc-2.0 .screenrc .tmux.conf .vim .vimrc .zsh"
+PACKAGES="bin/git-patdiff bin/create-toolboxes.sh bin/update-toolboxes.sh .config/awesome .config/gtk-3.0/settings.ini .emacs.d .gitconfig .gtkrc-2.0 .screenrc .tmux.conf .vim .vimrc .zsh"
 
 echo "Installing all symlink packages"
 install_link () {
