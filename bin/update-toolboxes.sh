@@ -21,3 +21,7 @@ toolbox run -c media sudo dnf clean all
 toolbox run -c freerdp sudo dnf upgrade --refresh -y
 toolbox run -c freerdp sudo dnf autoremove -y
 toolbox run -c freerdp sudo dnf clean all
+
+toolbox run -c node sudo dnf upgrade --refresh -y
+toolbox run -c node sudo dnf autoremove -y
+toolbox run -c node sudo dnf clean all

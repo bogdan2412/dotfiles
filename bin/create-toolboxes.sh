@@ -33,3 +33,9 @@ toolbox run -c freerdp sudo dnf upgrade --refresh -y
 toolbox run -c freerdp sudo dnf install -y freerdp
 toolbox run -c freerdp sudo dnf autoremove -y
 toolbox run -c freerdp sudo dnf clean all
+
+toolbox create -c node || true
+toolbox run -c node sudo dnf upgrade --refresh -y
+toolbox run -c node sudo dnf install -y alsa-lib libX11-xcb libXScrnSaver npm nss
+toolbox run -c node sudo dnf autoremove -y
+toolbox run -c node sudo dnf clean all
