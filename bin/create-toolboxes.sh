@@ -2,7 +2,14 @@
 
 set -euo pipefail
 
-CREATE_ARGS="--image fedora-toolbox"
+SOURCE_IMAGE=registry.fedoraproject.org/f31/fedora-toolbox:31
+UPDATED_IMAGE=fedora-toolbox-$(date +%Y%m%d)
+
+WORKING_CONTAINER=$(buildah from --cap-add CAP_SETFCAP "registry.fedoraproject.org/f31/fedora-toolbox:31")
+buildah run "$WORKING_CONTAINER" -- bash -c "dnf upgrade --refresh -y && dnf autoremove -y && dnf clean all"
+buildah commit "$WORKING_CONTAINER" "$UPDATED_IMAGE"
+
+CREATE_ARGS="--image $UPDATED_IMAGE"
 
 toolbox create $CREATE_ARGS -c ocaml || true
 toolbox run -c ocaml sudo dnf upgrade --refresh -y
