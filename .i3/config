@@ -115,8 +115,8 @@ bindsym $mod+Shift+9 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspa
 # initialise workspaces
 # home
 set $output1 DP-2
-set $output2 HDMI-1
-set $output3 none
+set $output2 DP-0
+set $output3 HDMI-1
 set $output4 none
 
 workspace 11 output $output1
@@ -141,7 +141,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-bindsym $mod+Shift+l exec "xsecurelock"
+bindsym $mod+Shift+l exec "i3lock -c 000000"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
