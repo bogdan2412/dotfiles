@@ -5,7 +5,8 @@ set -euo pipefail
 SOURCE_IMAGE=registry.fedoraproject.org/f31/fedora-toolbox:31
 UPDATED_IMAGE=fedora-toolbox-$(date +%Y%m%d)
 
-WORKING_CONTAINER=$(buildah from --cap-add CAP_SETFCAP "registry.fedoraproject.org/f31/fedora-toolbox:31")
+podman pull "$SOURCE_IMAGE"
+WORKING_CONTAINER=$(buildah from --cap-add CAP_SETFCAP "$SOURCE_IMAGE")
 buildah run "$WORKING_CONTAINER" -- bash -c "dnf upgrade --refresh -y && dnf autoremove -y && dnf clean all"
 buildah commit "$WORKING_CONTAINER" "$UPDATED_IMAGE"
 
