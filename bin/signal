@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec flatpak run org.signal.Signal
