@@ -12,6 +12,7 @@ buildah run "$WORKING_CONTAINER" -- bash -c "dnf install -y emacs vim zsh"
 buildah run "$WORKING_CONTAINER" -- bash -c "dnf autoremove -y"
 buildah run "$WORKING_CONTAINER" -- bash -c "dnf clean all"
 buildah commit "$WORKING_CONTAINER" "$UPDATED_IMAGE"
+buildah rm "$WORKING_CONTAINER"
 
 CREATE_ARGS="--image $UPDATED_IMAGE"
 
