@@ -113,11 +113,17 @@ bindsym $mod+Shift+8 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspa
 bindsym $mod+Shift+9 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 9 -move"
 
 # initialise workspaces
-# home
+# home - nvidia driver
 set $output1 DP-2
 set $output2 DP-0
-set $output3 HDMI-1
+set $output3 HDMI-0
 set $output4 none
+
+# # home - nouveau driver
+# set $output1 DP-1
+# set $output2 DP-2
+# set $output3 HDMI-2
+# set $output4 none
 
 workspace 11 output $output1
 workspace 21 output $output2
