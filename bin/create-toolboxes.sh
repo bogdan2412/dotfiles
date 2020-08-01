@@ -29,7 +29,8 @@ toolbox run -c python sudo dnf autoremove -y
 toolbox run -c python sudo dnf clean all
 
 toolbox create $CREATE_ARGS -c wine || true
-toolbox run -c wine sudo dnf install -y wine
+toolbox run -c wine sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+toolbox run -c wine sudo dnf install -y wine xorg-x11-drv-nvidia
 toolbox run -c wine sudo dnf autoremove -y
 toolbox run -c wine sudo dnf clean all
 
