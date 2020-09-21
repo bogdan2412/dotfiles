@@ -36,7 +36,7 @@ toolbox run -c wine sudo dnf clean all
 
 toolbox create $CREATE_ARGS -c media || true
 toolbox run -c media sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-toolbox run -c media sudo dnf install -y ffmpeg ImageMagick plex-media-player xorg-x11-drv-nvidia unrar youtube-dl
+toolbox run -c media sudo dnf install -y beets beets-plugins cuetools ffmpeg flac ImageMagick plex-media-player shntool xorg-x11-drv-nvidia unrar youtube-dl
 toolbox run -c media sudo dnf autoremove -y
 toolbox run -c media sudo dnf clean all
 
