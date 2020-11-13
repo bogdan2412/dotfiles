@@ -46,6 +46,6 @@ toolbox run -c freerdp sudo dnf autoremove -y
 toolbox run -c freerdp sudo dnf clean all
 
 toolbox create $CREATE_ARGS -c node || true
-toolbox run -c node sudo dnf install -y alsa-lib libX11-xcb libXScrnSaver npm nss
+toolbox run -c node sudo dnf install -y alsa-lib jq libX11-xcb libXScrnSaver npm nss
 toolbox run -c node sudo dnf autoremove -y
 toolbox run -c node sudo dnf clean all
