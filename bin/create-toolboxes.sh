@@ -9,7 +9,7 @@ UPDATED_IMAGE=fedora-toolbox-$(date +%Y%m%d)
 podman pull "$SOURCE_IMAGE"
 WORKING_CONTAINER=$(buildah from --cap-add CAP_SETFCAP "$SOURCE_IMAGE")
 buildah run "$WORKING_CONTAINER" -- bash -c "dnf upgrade --refresh -y"
-buildah run "$WORKING_CONTAINER" -- bash -c "dnf install -y emacs vim zsh"
+buildah run "$WORKING_CONTAINER" -- bash -c "dnf install -y emacs jq vim zsh"
 buildah run "$WORKING_CONTAINER" -- bash -c "dnf autoremove -y"
 buildah run "$WORKING_CONTAINER" -- bash -c "dnf clean all"
 buildah commit "$WORKING_CONTAINER" "$UPDATED_IMAGE"
@@ -30,7 +30,7 @@ toolbox run -c media sudo dnf autoremove -y
 toolbox run -c media sudo dnf clean all
 
 toolbox create $CREATE_ARGS -c node || true
-toolbox run -c node sudo dnf install -y alsa-lib jq libX11-xcb libXScrnSaver npm nss
+toolbox run -c node sudo dnf install -y alsa-lib libX11-xcb libXScrnSaver npm nss
 toolbox run -c node sudo dnf autoremove -y
 toolbox run -c node sudo dnf clean all
 
