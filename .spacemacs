@@ -25,10 +25,6 @@ values."
      ;; ----------------------------------------------------------------
      ;; auto-completion
      ;; better-defaults
-     bogdan
-     emacs-lisp
-     git
-     ocaml
      ;; markdown
      ;; org
      ;; (shell :variables
@@ -37,6 +33,14 @@ values."
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
+     bogdan
+     ansible
+     emacs-lisp
+     git
+     javascript
+     ocaml
+     python
+     rust
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
