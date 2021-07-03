@@ -3,7 +3,7 @@
 set -euo pipefail
 
 FEDORA_VERSION=$(rpm -E %fedora)
-SOURCE_IMAGE=registry.fedoraproject.org/f$FEDORA_VERSION/fedora-toolbox:$FEDORA_VERSION
+SOURCE_IMAGE=registry.fedoraproject.org/fedora-toolbox:$FEDORA_VERSION
 UPDATED_IMAGE=fedora-toolbox-$(date +%Y%m%d)
 
 podman pull "$SOURCE_IMAGE"
