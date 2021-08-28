@@ -19,3 +19,4 @@
 [submodule ".emacs.d-with-spacemacs"]
 	path = .emacs.d-with-spacemacs
 	url = https://github.com/syl20bnr/spacemacs
+	branch = develop
