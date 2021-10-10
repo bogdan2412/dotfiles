@@ -18,7 +18,7 @@ buildah rm "$WORKING_CONTAINER"
 CREATE_ARGS="--image $UPDATED_IMAGE"
 
 toolbox create $CREATE_ARGS -c ocaml || true
-toolbox run -c ocaml sudo dnf install -y fuse-devel g++ gmp-devel libffi-devel opam openssl-devel pcre-devel zlib-devel
+toolbox run -c ocaml sudo dnf install -y bat fuse-devel g++ git-filter-repo gmp-devel libffi-devel opam openssl-devel pcre-devel zlib-devel
 toolbox run -c ocaml sudo dnf autoremove -y
 toolbox run -c ocaml sudo dnf clean all
 toolbox run -c ocaml opam init --compiler=4.10.2 --no-setup
@@ -40,7 +40,7 @@ toolbox run -c freerdp sudo dnf autoremove -y
 toolbox run -c freerdp sudo dnf clean all
 
 toolbox create $CREATE_ARGS -c python || true
-toolbox run -c python sudo dnf install -y python3-beautifulsoup4 python3-html5lib python3-netifaces python3-pycodestyle
+toolbox run -c python sudo dnf install -y bat python3-beautifulsoup4 python3-html5lib python3-netifaces python3-pycodestyle
 toolbox run -c python sudo dnf autoremove -y
 toolbox run -c python sudo dnf clean all
 
