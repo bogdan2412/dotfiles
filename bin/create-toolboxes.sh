@@ -21,7 +21,7 @@ toolbox create $CREATE_ARGS -c ocaml || true
 toolbox run -c ocaml sudo dnf install -y bat fuse-devel g++ git-filter-repo gmp-devel libffi-devel opam openssl-devel pcre-devel zlib-devel
 toolbox run -c ocaml sudo dnf autoremove -y
 toolbox run -c ocaml sudo dnf clean all
-toolbox run -c ocaml opam init --compiler=4.10.2 --no-setup
+toolbox run -c ocaml opam init --bare --no-setup
 
 toolbox create $CREATE_ARGS -c media || true
 toolbox run -c media sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
