@@ -18,7 +18,7 @@ buildah rm "$WORKING_CONTAINER"
 CREATE_ARGS="--image $UPDATED_IMAGE"
 
 toolbox create $CREATE_ARGS -c ocaml || true
-toolbox run -c ocaml sudo dnf install -y bat fuse-devel g++ git-filter-repo gmp-devel libffi-devel opam openssl-devel pcre-devel zlib-devel
+toolbox run -c ocaml sudo dnf install -y bat fuse-devel g++ git-filter-repo gmp-devel inotify-tools libffi-devel opam openssl-devel pcre-devel zlib-devel
 toolbox run -c ocaml sudo dnf autoremove -y
 toolbox run -c ocaml sudo dnf clean all
 toolbox run -c ocaml opam init --bare --no-setup
