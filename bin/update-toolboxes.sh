@@ -2,26 +2,18 @@
 
 set -euo pipefail
 
-toolbox run -c ocaml sudo dnf upgrade --refresh -y
-toolbox run -c ocaml sudo dnf autoremove -y
-toolbox run -c ocaml sudo dnf clean all
+upgrade() {
+  container=$1
+  toolbox run -c "$container" sudo dnf upgrade --refresh -y
+  toolbox run -c "$container" sudo dnf autoremove -y
+  toolbox run -c "$container" sudo dnf clean all
+}
 
-toolbox run -c media sudo dnf upgrade --refresh -y
-toolbox run -c media sudo dnf autoremove -y
-toolbox run -c media sudo dnf clean all
+upgrade ocaml &
+upgrade media &
+upgrade node &
+upgrade freerdp &
+upgrade python &
+upgrade wine &
 
-toolbox run -c node sudo dnf upgrade --refresh -y
-toolbox run -c node sudo dnf autoremove -y
-toolbox run -c node sudo dnf clean all
-
-toolbox run -c freerdp sudo dnf upgrade --refresh -y
-toolbox run -c freerdp sudo dnf autoremove -y
-toolbox run -c freerdp sudo dnf clean all
-
-toolbox run -c python sudo dnf upgrade --refresh -y
-toolbox run -c python sudo dnf autoremove -y
-toolbox run -c python sudo dnf clean all
-
-toolbox run -c wine sudo dnf upgrade --refresh -y
-toolbox run -c wine sudo dnf autoremove -y
-toolbox run -c wine sudo dnf clean all
+wait
