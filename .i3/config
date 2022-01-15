@@ -114,9 +114,9 @@ bindsym $mod+Shift+9 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspa
 
 # initialise workspaces
 # home - nvidia driver
-set $output1 DP-2
-set $output2 DP-0
-set $output3 HDMI-0
+set $output1 DP-0
+set $output2 HDMI-0
+set $output3 HDMI-1
 set $output4 none
 
 # # home - nouveau driver
