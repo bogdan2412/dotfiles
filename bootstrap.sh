@@ -45,9 +45,13 @@ done
 
 echo "Compiling Command-T plugin in vim package"
 cd $HOME/.vim/bundle/command-t/ruby/command-t
-ruby extconf.rb
-make
-rm Makefile mkmf.log *.o
+if ! command -v ruby &>/dev/null; then
+  echo "ERROR: ruby not installed, cannot use Command-T in vim."
+else
+  ruby extconf.rb
+  make
+  rm Makefile mkmf.log *.o
+fi
 cd $OLDPWD
 
 echo "Installing all snippet packages"
