@@ -9,7 +9,7 @@ UPDATED_IMAGE=fedora-toolbox-$(date +%Y%m%d)
 podman pull "$SOURCE_IMAGE"
 WORKING_CONTAINER=$(buildah from --cap-add CAP_SETFCAP "$SOURCE_IMAGE")
 buildah run "$WORKING_CONTAINER" -- sh -c "dnf upgrade --refresh -y"
-buildah run "$WORKING_CONTAINER" -- sh -c "dnf install -y bat emacs htop jq ripgrep vim zsh"
+buildah run "$WORKING_CONTAINER" -- sh -c "dnf install -y bat emacs fzf htop jq ripgrep vim zsh"
 buildah run "$WORKING_CONTAINER" -- sh -c "dnf autoremove -y"
 buildah run "$WORKING_CONTAINER" -- sh -c "dnf clean all"
 buildah commit "$WORKING_CONTAINER" "$UPDATED_IMAGE"
@@ -18,7 +18,7 @@ buildah rm "$WORKING_CONTAINER"
 CREATE_ARGS="--image $UPDATED_IMAGE"
 
 toolbox create $CREATE_ARGS -c ocaml || true
-toolbox run -c ocaml sudo dnf install -y fuse-devel g++ git-filter-repo gmp-devel inotify-tools libffi-devel opam openssl-devel pcre-devel zlib-devel
+toolbox run -c ocaml sudo dnf install -y clang-tools-extra fuse-devel g++ git-filter-repo gmp-devel inotify-tools libffi-devel opam openssl-devel pcre-devel zlib-devel
 toolbox run -c ocaml sudo dnf autoremove -y
 toolbox run -c ocaml sudo dnf clean all
 toolbox run -c ocaml opam init --bare --no-setup
