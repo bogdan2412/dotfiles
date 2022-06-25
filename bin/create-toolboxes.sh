@@ -18,7 +18,15 @@ buildah rm "$WORKING_CONTAINER"
 CREATE_ARGS="--image $UPDATED_IMAGE"
 
 toolbox create $CREATE_ARGS -c ocaml || true
-toolbox run -c ocaml sudo dnf install -y clang-tools-extra fuse-devel g++ git-filter-repo gmp-devel inotify-tools libffi-devel opam openssl-devel pcre-devel zlib-devel
+toolbox run -c ocaml sudo sh -c "echo > /etc/yum.repos.d/vscode.repo '\
+[vscode]
+name=Visual Studio Code
+baseurl=https://packages.microsoft.com/yumrepos/vscode
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc'"
+toolbox run -c ocaml sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+toolbox run -c ocaml sudo dnf install -y clang-tools-extra code fuse-devel g++ git-filter-repo gmp-devel inotify-tools libffi-devel opam openssl-devel pcre-devel zlib-devel
 toolbox run -c ocaml sudo dnf autoremove -y
 toolbox run -c ocaml sudo dnf clean all
 toolbox run -c ocaml opam init --bare --no-setup
