@@ -57,3 +57,8 @@ toolbox run -c wine sudo dnf install -y https://download1.rpmfusion.org/free/fed
 toolbox run -c wine sudo dnf install -y wine xorg-x11-drv-nvidia
 toolbox run -c wine sudo dnf autoremove -y
 toolbox run -c wine sudo dnf clean all
+
+toolbox create $CREATE_ARGS -c golang || true
+toolbox run -c golang sudo dnf install -y golang
+toolbox run -c golang sudo dnf autoremove -y
+toolbox run -c golang sudo dnf clean all

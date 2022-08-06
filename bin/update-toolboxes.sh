@@ -15,5 +15,6 @@ upgrade node &
 upgrade freerdp &
 upgrade python &
 upgrade wine &
+upgrade golang &
 
 wait
