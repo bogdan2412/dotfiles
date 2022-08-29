@@ -9,7 +9,7 @@ UPDATED_IMAGE=fedora-toolbox-$(date +%Y%m%d)
 podman pull "$SOURCE_IMAGE"
 WORKING_CONTAINER=$(buildah from --cap-add CAP_SETFCAP "$SOURCE_IMAGE")
 buildah run "$WORKING_CONTAINER" -- sh -c "dnf upgrade --refresh -y"
-buildah run "$WORKING_CONTAINER" -- sh -c "dnf install -y bat emacs fzf htop jq ripgrep vim zsh"
+buildah run "$WORKING_CONTAINER" -- sh -c "dnf install -y bat emacs fzf htop jq ripgrep ShellCheck vim zsh"
 buildah run "$WORKING_CONTAINER" -- sh -c "dnf autoremove -y"
 buildah run "$WORKING_CONTAINER" -- sh -c "dnf clean all"
 buildah commit "$WORKING_CONTAINER" "$UPDATED_IMAGE"
