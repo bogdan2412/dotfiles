@@ -16,5 +16,6 @@ upgrade freerdp &
 upgrade python &
 upgrade wine &
 upgrade golang &
+upgrade dotnet &
 
 wait
