@@ -61,7 +61,8 @@ init_freerdp() {
 }
 
 init_python() {
-  toolbox run -c python sudo dnf install -y python3-beautifulsoup4 python3-html5lib python3-netifaces python3-pycodestyle
+  toolbox run -c python sudo dnf install -y python3-beautifulsoup4 python3-html5lib python3-netifaces python3-pip
+  toolbox run -c python pip install mypy pyright yapf
   toolbox run -c python sudo dnf autoremove -y
   toolbox run -c python sudo dnf clean all
 }
