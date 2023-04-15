@@ -35,7 +35,7 @@ toolbox create $CREATE_ARGS -c golang || true
 toolbox create $CREATE_ARGS -c dotnet || true
 
 init_ocaml() {
-  toolbox run -c ocaml sudo dnf install -y clang-tools-extra fuse-devel g++ git-filter-repo gmp-devel inotify-tools libffi-devel opam openssl-devel pcre-devel zlib-devel
+  toolbox run -c ocaml sudo dnf install -y clang-tools-extra fuse-devel g++ git-filter-repo gmp-devel inotify-tools libffi-devel npm opam openssl-devel pcre-devel zlib-devel
   toolbox run -c ocaml sudo dnf autoremove -y
   toolbox run -c ocaml sudo dnf clean all
   toolbox run -c ocaml opam init --bare --no-setup default git+https://github.com/ocaml/opam-repository
@@ -43,7 +43,7 @@ init_ocaml() {
 
 init_media() {
   toolbox run -c media sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-  toolbox run -c media sudo dnf install -y beets beets-plugins cuetools ffmpeg flac ImageMagick plex-media-player shntool xorg-x11-drv-nvidia unrar youtube-dl
+  toolbox run -c media sudo dnf install -y beets beets-plugins cuetools ffmpeg flac ImageMagick mkvtoolnix shntool xorg-x11-drv-nvidia unrar youtube-dl
   toolbox run -c media sudo dnf autoremove -y
   toolbox run -c media sudo dnf clean all
 }
