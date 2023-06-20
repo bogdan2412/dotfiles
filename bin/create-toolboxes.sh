@@ -43,7 +43,7 @@ init_ocaml() {
 
 init_media() {
   toolbox run -c media sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-  toolbox run -c media sudo dnf install -y beets beets-plugins cuetools ffmpeg flac ImageMagick mkvtoolnix shntool xorg-x11-drv-nvidia unrar youtube-dl
+  toolbox run -c media sudo dnf install -y beets beets-plugins cuetools ffmpeg flac ImageMagick libjpeg-turbo-utils mkvtoolnix shntool xorg-x11-drv-nvidia unrar youtube-dl
   toolbox run -c media sudo dnf autoremove -y
   toolbox run -c media sudo dnf clean all
 }
