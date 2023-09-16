@@ -21,15 +21,14 @@ PACKAGES="
   .vim
   .vimrc
   .zsh
+  bin/chromium
   bin/create-toolboxes.sh
   bin/git-patdiff
   bin/git-svn-diff
   bin/i3-emulate-awesomewm-workspaces.py
   bin/signal
-  bin/spotify
   bin/steam
   bin/update-toolboxes.sh
-  bin/vlc
 "
 
 echo "Installing all symlink packages"
