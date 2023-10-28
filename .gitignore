@@ -1,10 +1,7 @@
-.vim/.netrwhist
-.vim/bundle/command-t/ruby/command-t/ext.bundle
-.vim/bundle/command-t/ruby/command-t/ext.so
-.emacs.d-without-spacemacs/abbrev_defs
-.emacs.d-without-spacemacs/ac-comphist.dat
-.emacs.d-without-spacemacs/auto-save-list
-.emacs.d-without-spacemacs/elpa/archives
-.emacs.d-without-spacemacs/elpa/gnupg
-.emacs.d-without-spacemacs/ido.last
+/.emacs.d-without-spacemacs/abbrev_defs
+/.emacs.d-without-spacemacs/ac-comphist.dat
+/.emacs.d-without-spacemacs/auto-save-list
+/.emacs.d-without-spacemacs/elpa/archives
+/.emacs.d-without-spacemacs/elpa/gnupg
+/.emacs.d-without-spacemacs/ido.last
 *.elc

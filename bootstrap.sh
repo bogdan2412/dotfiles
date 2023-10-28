@@ -11,6 +11,7 @@ fi
 PACKAGES="
   .config/awesome
   .config/gtk-3.0/settings.ini
+  .config/nvim
   .emacs.d
   .gitconfig
   .gtkrc-2.0
@@ -18,8 +19,6 @@ PACKAGES="
   .i3status.conf
   .screenrc
   .tmux.conf
-  .vim
-  .vimrc
   .zsh
   bin/chromium
   bin/create-toolboxes.sh
@@ -66,17 +65,6 @@ for PACKAGE in $PACKAGES; do
     install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
   fi
 done
-
-echo "Compiling Command-T plugin in vim package"
-cd "$HOME/.vim/bundle/command-t/ruby/command-t"
-if ! command -v ruby >/dev/null 2>&1; then
-  echo "ERROR: ruby not installed, cannot use Command-T in vim."
-else
-  ruby extconf.rb
-  make
-  rm Makefile mkmf.log ./*.o
-fi
-cd "$OLDPWD"
 
 echo "Installing all snippet packages"
 PACKAGES=".bashrc .profile .zshrc"
