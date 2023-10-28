@@ -2,7 +2,7 @@
 
 set -eu
 
-REPOSITORY_PATH=$(dirname $(readlink -f $0))
+REPOSITORY_PATH=$(dirname "$(readlink -f "$0")")
 SPACEMACS=true
 if [ "${1:-}" = "--no-spacemacs" ]; then
   SPACEMACS=false
@@ -42,7 +42,7 @@ install_link () {
     echo "$DESTINATION already exists."
     return 1
   fi
-  mkdir -p $(dirname "$DESTINATION")
+  mkdir -p "$(dirname "$DESTINATION")"
   ln -s "$SOURCE" "$DESTINATION"
 }
 
@@ -65,15 +65,15 @@ for PACKAGE in $PACKAGES; do
 done
 
 echo "Compiling Command-T plugin in vim package"
-cd $HOME/.vim/bundle/command-t/ruby/command-t
-if ! command -v ruby &>/dev/null; then
+cd "$HOME/.vim/bundle/command-t/ruby/command-t"
+if ! command -v ruby >/dev/null 2>&1; then
   echo "ERROR: ruby not installed, cannot use Command-T in vim."
 else
   ruby extconf.rb
   make
-  rm Makefile mkmf.log *.o
+  rm Makefile mkmf.log ./*.o
 fi
-cd $OLDPWD
+cd "$OLDPWD"
 
 echo "Installing all snippet packages"
 PACKAGES=".bashrc .profile .zshrc"
@@ -85,22 +85,24 @@ for PACKAGE in $PACKAGES; do
   fi
   matched_begin_markers=$(grep -x -c "$BEGIN_MARKER" "$HOME/$PACKAGE" || true)
   matched_end_markers=$(grep -x -c "$END_MARKER" "$HOME/$PACKAGE" || true)
-  matched_markers=$(($matched_begin_markers + $matched_end_markers))
-  if [ "$matched_begin_markers" -eq 1 -a "$matched_end_markers" -eq 1 ]; then
+  matched_markers=$((matched_begin_markers + matched_end_markers))
+  if [ "$matched_begin_markers" -eq 1 ] && [ "$matched_end_markers" -eq 1 ]; then
     # Try and remove already installed snippet.
     begin_line=$(grep -x -n "$BEGIN_MARKER" "$HOME/$PACKAGE")
     begin_line=${begin_line%%:*}
     end_line=$(grep -x -n "$END_MARKER" "$HOME/$PACKAGE")
     end_line=${end_line%%:*}
 
-    sed -i.bak "$begin_line,$end_line d" $HOME/$PACKAGE
+    sed -i.bak "$begin_line,$end_line d" "$HOME/$PACKAGE"
   elif [ "$matched_markers" -ne 0 ]; then
     echo "Warning: unable to remove existing snippets in $PACKAGE"
   fi
 
-  echo "$BEGIN_MARKER" >> $HOME/$PACKAGE
-  cat $REPOSITORY_PATH/$PACKAGE >> $HOME/$PACKAGE
-  echo "$END_MARKER" >> $HOME/$PACKAGE
+  {
+    echo "$BEGIN_MARKER"
+    cat "$REPOSITORY_PATH/$PACKAGE"
+    echo "$END_MARKER"
+  } >> "$HOME/$PACKAGE"
 done
 
 if [ -h "$HOME/.zprofile" ]; then
@@ -113,6 +115,6 @@ else
 fi
 
 echo "Installing powerline fonts"
-$REPOSITORY_PATH/fonts/install.sh
+"$REPOSITORY_PATH/fonts/install.sh"
 
 echo "Done. Have fun!"
