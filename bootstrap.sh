@@ -31,7 +31,18 @@ PACKAGES="
 "
 
 echo "Checking out git submodules"
-git -C "$REPOSITORY_PATH" submodule update --init 
+if ! [ -f "$REPOSITORY_PATH/nerd-fonts/.git" ]; then
+  git -C "$REPOSITORY_PATH" clone --filter=blob:none --no-checkout https://github.com/ryanoasis/nerd-fonts.git
+  git -C "$REPOSITORY_PATH" submodule absorbgitdirs
+fi
+git -C "$REPOSITORY_PATH/nerd-fonts" sparse-checkout set
+git -C "$REPOSITORY_PATH/nerd-fonts" sparse-checkout add patched-fonts/Meslo
+git -C "$REPOSITORY_PATH/nerd-fonts" reset >/dev/null
+git -C "$REPOSITORY_PATH/nerd-fonts" sparse-checkout reapply
+git -C "$REPOSITORY_PATH/nerd-fonts" checkout .
+git -C "$REPOSITORY_PATH/nerd-fonts" clean -fdx
+
+git -C "$REPOSITORY_PATH" submodule update --init
 
 echo "Installing all symlink packages"
 install_link () {
@@ -105,7 +116,7 @@ else
   ln -s "$HOME/.profile" "$HOME/.zprofile"
 fi
 
-echo "Installing powerline fonts"
-"$REPOSITORY_PATH/fonts/install.sh"
+echo "Installing fonts"
+"$REPOSITORY_PATH/nerd-fonts/install.sh" --link
 
 echo "Done. Have fun!"
