@@ -31,6 +31,9 @@ PACKAGES="
   bin/update-toolboxes.sh
 "
 
+echo "Checking out git submodules"
+git -C "$REPOSITORY_PATH" submodule update --init 
+
 echo "Installing all symlink packages"
 install_link () {
   SOURCE=$1
