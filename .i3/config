@@ -27,8 +27,7 @@ font pango:DejaVu Sans Mono 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
-bindsym $mod+Shift+Return exec "gnome-terminal --profile=Local"
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -91,26 +90,26 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 1"
-bindsym $mod+2 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 2"
-bindsym $mod+3 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 3"
-bindsym $mod+4 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 4"
-bindsym $mod+5 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 5"
-bindsym $mod+6 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 6"
-bindsym $mod+7 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 7"
-bindsym $mod+8 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 8"
-bindsym $mod+9 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 9"
+bindsym $mod+1 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 1"
+bindsym $mod+2 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 2"
+bindsym $mod+3 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 3"
+bindsym $mod+4 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 4"
+bindsym $mod+5 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 5"
+bindsym $mod+6 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 6"
+bindsym $mod+7 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 7"
+bindsym $mod+8 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 8"
+bindsym $mod+9 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 9"
 
 # move focused container to workspace
-bindsym $mod+Shift+1 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 1 -move"
-bindsym $mod+Shift+2 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 2 -move"
-bindsym $mod+Shift+3 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 3 -move"
-bindsym $mod+Shift+4 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 4 -move"
-bindsym $mod+Shift+5 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 5 -move"
-bindsym $mod+Shift+6 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 6 -move"
-bindsym $mod+Shift+7 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 7 -move"
-bindsym $mod+Shift+8 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 8 -move"
-bindsym $mod+Shift+9 exec "/var/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 9 -move"
+bindsym $mod+Shift+1 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 1 -move"
+bindsym $mod+Shift+2 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 2 -move"
+bindsym $mod+Shift+3 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 3 -move"
+bindsym $mod+Shift+4 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 4 -move"
+bindsym $mod+Shift+5 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 5 -move"
+bindsym $mod+Shift+6 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 6 -move"
+bindsym $mod+Shift+7 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 7 -move"
+bindsym $mod+Shift+8 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 8 -move"
+bindsym $mod+Shift+9 exec "/home/bogdan2412/bin/i3-emulate-awesomewm-workspaces.py 9 -move"
 
 # initialise workspaces
 # home - nvidia driver
