@@ -25,6 +25,7 @@ PACKAGES="
   bin/git-patdiff
   bin/git-svn-diff
   bin/i3-emulate-awesomewm-workspaces.py
+  bin/icat
   bin/signal
   bin/steam
   bin/update-toolboxes.sh
