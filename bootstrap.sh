@@ -11,6 +11,7 @@ fi
 PACKAGES="
   .config/awesome
   .config/gtk-3.0/settings.ini
+  .config/kitty
   .config/nvim
   .emacs.d
   .gitconfig
