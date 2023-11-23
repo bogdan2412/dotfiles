@@ -30,6 +30,7 @@ PACKAGES="
   bin/signal
   bin/steam
   bin/update-toolboxes.sh
+  bin/vimdiff
 "
 
 echo "Checking out git submodules"
