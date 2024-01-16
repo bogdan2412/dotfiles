@@ -10,6 +10,7 @@ fi
 
 PACKAGES="
   .config/awesome
+  .config/btop
   .config/gtk-3.0/settings.ini
   .config/kitty
   .config/lsd
