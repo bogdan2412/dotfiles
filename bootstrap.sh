@@ -12,6 +12,7 @@ PACKAGES="
   .config/awesome
   .config/gtk-3.0/settings.ini
   .config/kitty
+  .config/lsd
   .config/nvim
   .emacs.d
   .gitconfig

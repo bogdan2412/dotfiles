@@ -1,0 +1,13 @@
+color:
+  theme: custom
+
+date: '+%a %Y-%m-%d %H:%M:%S'
+
+blocks:
+  - permission
+  - links
+  - user
+  - group
+  - size
+  - date
+  - name

@@ -1,0 +1,11 @@
+permission:
+  read: 118
+  write: 227
+  exec: 196
+  no-access: 253
+date:
+  hour-old: 154
+  day-old: 191
+  older: 255
+links:
+  valid: 255
