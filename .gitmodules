@@ -14,3 +14,9 @@
 [submodule "nerd-fonts"]
 	path = nerd-fonts
 	url = https://github.com/ryanoasis/nerd-fonts.git
+[submodule ".config/tmux/plugins/tpm"]
+	path = .config/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule ".config/tmux/plugins/vim-tmux-navigator"]
+	path = .config/tmux/plugins/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator
