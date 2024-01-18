@@ -16,13 +16,13 @@ PACKAGES="
   .config/kitty
   .config/lsd
   .config/nvim
+  .config/tmux
   .emacs.d
   .gitconfig
   .gtkrc-2.0
   .i3
   .i3status.conf
   .screenrc
-  .tmux.conf
   .zsh
   bin/chromium
   bin/create-toolboxes.sh
@@ -78,6 +78,16 @@ for PACKAGE in $PACKAGES; do
       install_link \
         "$REPOSITORY_PATH/.emacs.d-without-spacemacs" "$HOME/.emacs.d"
     fi
+  elif [ "$PACKAGE" = ".config/tmux" ]; then
+    if [ -h "$HOME/.tmux.conf" ]; then
+      rm "$HOME/.tmux.conf"
+    fi
+    if [ -e "$HOME/.tmux.conf" ]; then
+      echo "$HOME/.tmux.conf already exists, cannot install $PACKAGE."
+      exit 1
+    fi
+
+    install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
   else
     install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
   fi
