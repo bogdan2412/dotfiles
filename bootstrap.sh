@@ -64,6 +64,24 @@ install_link () {
   ln -s "$SOURCE" "$DESTINATION"
 }
 
+cleanup_old_config () {
+  OLD_CONFIG=$1
+  REPLACED_BY=${2-}
+
+  if [ -h "$OLD_CONFIG" ]; then
+    rm "$OLD_CONFIG"
+  fi
+  if [ -e "$OLD_CONFIG" ]; then
+    if [ -n "$REPLACED_BY" ]; then
+      echo "Deprecated $OLD_CONFIG exists, cannot install $REPLACED_BY."
+    else
+      echo "Deprecated $OLD_CONFIG exists."
+    fi
+    exit 1
+  fi
+}
+
+cleanup_old_config "$HOME/.screenrc"
 for PACKAGE in $PACKAGES; do
   if [ "$PACKAGE" = ".emacs.d" ]; then
     if $SPACEMACS; then
@@ -78,14 +96,12 @@ for PACKAGE in $PACKAGES; do
         "$REPOSITORY_PATH/.emacs.d-without-spacemacs" "$HOME/.emacs.d"
     fi
   elif [ "$PACKAGE" = ".config/tmux" ]; then
-    if [ -h "$HOME/.tmux.conf" ]; then
-      rm "$HOME/.tmux.conf"
-    fi
-    if [ -e "$HOME/.tmux.conf" ]; then
-      echo "$HOME/.tmux.conf already exists, cannot install $PACKAGE."
-      exit 1
-    fi
-
+    cleanup_old_config "$HOME/.tmux.conf" "$PACKAGE"
+    install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
+  elif [ "$PACKAGE" = ".config/nvim" ]; then
+    cleanup_old_config "$HOME/.vim" "$PACKAGE"
+    cleanup_old_config "$HOME/.vimrc" "$PACKAGE"
+    rm -f "$HOME/.viminfo"
     install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
   else
     install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
@@ -105,6 +121,9 @@ for PACKAGE in $PACKAGES; do
   matched_markers=$((matched_begin_markers + matched_end_markers))
   if [ "$matched_begin_markers" -eq 1 ] && [ "$matched_end_markers" -eq 1 ]; then
     cat "$REPOSITORY_PATH/$PACKAGE" | sed -i.bak -e "/^$BEGIN_MARKER$/,/^$END_MARKER$/{ r /dev/stdin" -e '//!d; }' "$HOME/$PACKAGE"
+    if diff -q "$HOME/$PACKAGE.bak" "$HOME/$PACKAGE" >/dev/null 2>&1; then
+      rm "$HOME/$PACKAGE.bak"
+    fi
   else
     if [ "$matched_markers" -ne 0 ]; then
       echo "Warning: unable to remove existing snippets in $PACKAGE"
