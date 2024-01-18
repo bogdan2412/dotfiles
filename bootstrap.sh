@@ -95,22 +95,18 @@ for PACKAGE in $PACKAGES; do
   matched_end_markers=$(grep -x -c "$END_MARKER" "$HOME/$PACKAGE" || true)
   matched_markers=$((matched_begin_markers + matched_end_markers))
   if [ "$matched_begin_markers" -eq 1 ] && [ "$matched_end_markers" -eq 1 ]; then
-    # Try and remove already installed snippet.
-    begin_line=$(grep -x -n "$BEGIN_MARKER" "$HOME/$PACKAGE")
-    begin_line=${begin_line%%:*}
-    end_line=$(grep -x -n "$END_MARKER" "$HOME/$PACKAGE")
-    end_line=${end_line%%:*}
+    cat "$REPOSITORY_PATH/$PACKAGE" | sed -i.bak -e "/^$BEGIN_MARKER$/,/^$END_MARKER$/{ r /dev/stdin" -e '//!d; }' "$HOME/$PACKAGE"
+  else
+    if [ "$matched_markers" -ne 0 ]; then
+      echo "Warning: unable to remove existing snippets in $PACKAGE"
+    fi
 
-    sed -i.bak "$begin_line,$end_line d" "$HOME/$PACKAGE"
-  elif [ "$matched_markers" -ne 0 ]; then
-    echo "Warning: unable to remove existing snippets in $PACKAGE"
+    {
+      echo "$BEGIN_MARKER"
+      cat "$REPOSITORY_PATH/$PACKAGE"
+      echo "$END_MARKER"
+    } >> "$HOME/$PACKAGE"
   fi
-
-  {
-    echo "$BEGIN_MARKER"
-    cat "$REPOSITORY_PATH/$PACKAGE"
-    echo "$END_MARKER"
-  } >> "$HOME/$PACKAGE"
 done
 
 if [ -h "$HOME/.zprofile" ]; then
