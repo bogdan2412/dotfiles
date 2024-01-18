@@ -22,7 +22,6 @@ PACKAGES="
   .gtkrc-2.0
   .i3
   .i3status.conf
-  .screenrc
   .zsh
   bin/chromium
   bin/create-toolboxes.sh
