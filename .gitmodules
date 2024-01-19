@@ -23,3 +23,6 @@
 [submodule ".config/tmux/plugins/tmux-yank"]
 	path = .config/tmux/plugins/tmux-yank
 	url = https://github.com/tmux-plugins/tmux-yank
+[submodule ".config/tmux/plugins/tmux-onedark-theme"]
+	path = .config/tmux/plugins/tmux-onedark-theme
+	url = https://github.com/bogdan2412/tmux-onedark-theme.git
