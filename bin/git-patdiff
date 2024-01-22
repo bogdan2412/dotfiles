@@ -1,8 +1,25 @@
 #!/bin/sh
 
-patdiff "$2" "$5" -alt-old "$3 $1 $4" -alt-new "$6 $1 $7"
+set -u
+
+LINE_OLD="$3 $1 $4"
+LINE_NEW="$6 ${8-$1} $7"
+
+PATDIFF_OUTPUT=$(patdiff "$2" "$5")
 RETURN_CODE=$?
-if [ $RETURN_CODE -eq 0 -o $RETURN_CODE -eq 1 ]; then
+
+if [ "$2" != "/dev/null" ]; then
+  printf "\033[0;31m------ \033[0m\033[0;1m%s\033[0m\n" "$LINE_OLD"
+fi
+if [ "$5" != "/dev/null" ]; then
+  printf "\033[0;32m++++++ \033[0m\033[0;1m%s\033[0m\n" "$LINE_NEW"
+fi
+if [ -n "${9-}" ]; then
+  printf "%s" "$9";
+fi
+echo "$PATDIFF_OUTPUT" | tail -n+3
+
+if [ $RETURN_CODE -eq 0 ] || [ $RETURN_CODE -eq 1 ]; then
   exit 0
 fi
 exit $RETURN_CODE
