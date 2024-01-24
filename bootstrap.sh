@@ -3,12 +3,31 @@
 set -eu
 
 REPOSITORY_PATH=$(dirname "$(readlink -f "$0")")
-SPACEMACS=true
-if [ "${1:-}" = "--no-spacemacs" ]; then
-  SPACEMACS=false
+
+usage() {
+  echo "USAGE: $0 [--minimal|--full|--full-no-spacemacs]"
+  exit 1
+}
+
+if [ "$#" -ne 1 ]; then
+  usage
 fi
 
-PACKAGES="
+MINIMAL=false
+SPACEMACS=true
+if [ "$1" = "--minimal" ]; then
+  MINIMAL=true
+elif [ "$1" = "--full-no-spacemacs" ]; then
+  SPACEMACS=false
+elif [ "$1" != "--full" ]; then
+  usage
+fi
+
+PACKAGES_MINIMAL="
+  .config/tmux
+  .zsh
+"
+PACKAGES_OTHER="
   .config/awesome
   .config/btop
   .config/dust
@@ -34,6 +53,14 @@ PACKAGES="
   bin/update-toolboxes.sh
   bin/vimdiff
 "
+
+if $MINIMAL; then
+  PACKAGES_CLEANUP="$PACKAGES_OTHER .spacemacs"
+  PACKAGES_INSTALL=$PACKAGES_MINIMAL
+else
+  PACKAGES_CLEANUP=""
+  PACKAGES_INSTALL="$PACKAGES_MINIMAL $PACKAGES_OTHER"
+fi
 
 echo "Checking out git submodules"
 if ! [ -f "$REPOSITORY_PATH/nerd-fonts/.git" ]; then
@@ -82,7 +109,10 @@ cleanup_old_config () {
 }
 
 cleanup_old_config "$HOME/.screenrc"
-for PACKAGE in $PACKAGES; do
+for PACKAGE in $PACKAGES_CLEANUP; do
+  cleanup_old_config "$HOME/$PACKAGE"
+done
+for PACKAGE in $PACKAGES_INSTALL; do
   if [ "$PACKAGE" = ".emacs.d" ]; then
     if $SPACEMACS; then
       install_link \
@@ -94,6 +124,7 @@ for PACKAGE in $PACKAGES; do
     else
       install_link \
         "$REPOSITORY_PATH/.emacs.d-without-spacemacs" "$HOME/.emacs.d"
+      cleanup_old_config "$HOME/.spacemacs"
     fi
   elif [ "$PACKAGE" = ".config/tmux" ]; then
     cleanup_old_config "$HOME/.tmux.conf" "$PACKAGE"
@@ -109,10 +140,17 @@ for PACKAGE in $PACKAGES; do
 done
 
 echo "Installing all snippet packages"
-PACKAGES=".bashrc .profile .zshrc"
+PACKAGES_MINIMAL=".zshrc"
+PACKAGES_OTHER=".bashrc .profile"
+if $MINIMAL; then
+  PACKAGES_INSTALL=$PACKAGES_MINIMAL
+else
+  PACKAGES_INSTALL="$PACKAGES_MINIMAL $PACKAGES_OTHER"
+fi
+
 BEGIN_MARKER="# ---- DOT FILES BOOTSTRAPPING BEGIN ----"
 END_MARKER="# ---- DOT FILES BOOTSTRAPPING END ----"
-for PACKAGE in $PACKAGES; do
+for PACKAGE in $PACKAGES_INSTALL; do
   if [ ! -f "$HOME/$PACKAGE" ]; then
     touch "$HOME/$PACKAGE"
   fi
@@ -120,6 +158,7 @@ for PACKAGE in $PACKAGES; do
   matched_end_markers=$(grep -x -c "$END_MARKER" "$HOME/$PACKAGE" || true)
   matched_markers=$((matched_begin_markers + matched_end_markers))
   if [ "$matched_begin_markers" -eq 1 ] && [ "$matched_end_markers" -eq 1 ]; then
+    # shellcheck disable=SC2002
     cat "$REPOSITORY_PATH/$PACKAGE" | sed -i.bak -e "/^$BEGIN_MARKER$/,/^$END_MARKER$/{ r /dev/stdin" -e '//!d; }' "$HOME/$PACKAGE"
     if diff -q "$HOME/$PACKAGE.bak" "$HOME/$PACKAGE" >/dev/null 2>&1; then
       rm "$HOME/$PACKAGE.bak"
@@ -146,7 +185,9 @@ else
   ln -s "$HOME/.profile" "$HOME/.zprofile"
 fi
 
-echo "Installing fonts"
-"$REPOSITORY_PATH/nerd-fonts/install.sh" --link
+if ! $MINIMAL; then
+  echo "Installing fonts"
+  "$REPOSITORY_PATH/nerd-fonts/install.sh" --link
+fi
 
 echo "Done. Have fun!"

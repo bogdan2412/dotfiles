@@ -101,14 +101,16 @@ function git {
   fi
 }
 
-unalias ls
-function ls {
-  if git rev-parse --git-dir >/dev/null 2>&1; then
-    command lsd --git "${@}"
-  else
-    command lsd "${@}"
-  fi
-}
+if which lsd >/dev/null 2>&1; then
+  unalias ls
+  function ls {
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+      command lsd --git "${@}"
+    else
+      command lsd "${@}"
+    fi
+  }
 
-alias lt="ls -l --tree"
-alias lta="ls -la --tree"
+  alias lt="ls -l --tree"
+  alias lta="ls -la --tree"
+fi
