@@ -114,3 +114,17 @@ if which lsd >/dev/null 2>&1; then
   alias lt="ls -l --tree"
   alias lta="ls -la --tree"
 fi
+
+# Oh-my-zsh currently doesn't report OSC7 working directory and hostname over
+# SSH, because it causes problems for Konsole users, but WezTerm behaves
+# correctly.
+if ! typeset -f omz_termsupport_cwd > /dev/null; then
+  function omz_termsupport_cwd {
+    local URL_HOST URL_PATH
+    URL_HOST="$(omz_urlencode -P $HOST)" || return 1
+    URL_PATH="$(omz_urlencode -P $PWD)" || return 1
+    printf "\e]7;file://%s%s\e\\" "${URL_HOST}" "${URL_PATH}"
+  }
+
+  add-zsh-hook precmd omz_termsupport_cwd
+fi
