@@ -31,4 +31,9 @@ config.default_domain = 'local-machine'
 
 tab_bar.init(config)
 
+local local_machine_config_exists, local_machin_config = pcall(require, 'local_machine')
+if local_machine_config_exists then
+  local_machin_config.init(config)
+end
+
 return config
