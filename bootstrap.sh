@@ -36,6 +36,7 @@ PACKAGES_OTHER="
   .config/lsd
   .config/nvim
   .config/tmux
+  .config/wezterm
   .emacs.d
   .gitconfig
   .gtkrc-2.0
