@@ -1,5 +1,6 @@
 local wezterm = require 'wezterm'
 local keymaps = require 'keymaps'
+local ssh_agent = require 'ssh_agent'
 local tab_bar = require 'tab_bar'
 
 local config = wezterm.config_builder()
@@ -31,6 +32,7 @@ config.unix_domains = {
 config.default_domain = 'local-machine'
 
 keymaps.init(config)
+ssh_agent.init(config)
 tab_bar.init(config)
 
 local local_machine_config_exists, local_machin_config = pcall(require, 'local_machine')
