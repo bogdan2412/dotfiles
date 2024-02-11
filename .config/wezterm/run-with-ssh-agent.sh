@@ -9,7 +9,7 @@ find_sockets() {
       echo "$CANDIDATE";
     fi
   fi
-  if [ -x "$(which launchctl)" ]; then 
+  if [ -x "$(which launchctl 2>&1)" ]; then 
     CANDIDATE=$(launchctl getenv SSH_AUTH_SOCK 2>/dev/null)
     if [ -S "$CANDIDATE" ]; then
       echo "$CANDIDATE";
@@ -21,7 +21,7 @@ find_sockets() {
 }
 
 test_socket() {
-  if ! [ -x "$(which ssh-add)" ]; then return 1; fi
+  if ! [ -x "$(which ssh-add 2>&1)" ]; then return 1; fi
 
   if [ "${1-}" != "" ]; then export SSH_AUTH_SOCK="$1"; fi
 
