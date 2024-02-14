@@ -5,7 +5,7 @@ local M = {}
 
 M.leader = { key = 'w', mods = 'CTRL', timeout_milliseconds = 1000 }
 
-local PaneAction = { MOVE = {}, RESIZE = {} }
+local PaneAction = { MOVE = {}, RESIZE = {}, SWAP = {} }
 local PaneDirection = { LEFT = {}, RIGHT = {}, DOWN = {}, UP = {} }
 
 local nvim_pane_action_key = function(pane_action, pane_direction)
@@ -29,9 +29,11 @@ local nvim_pane_action_key = function(pane_action, pane_direction)
   local mods
   if pane_action == PaneAction.MOVE then
     mods = 'CTRL'
-  else
-    assert(pane_action == PaneAction.RESIZE)
+  elseif pane_action == PaneAction.RESIZE then
     mods = 'CTRL|ALT'
+  else
+    assert(pane_action == PaneAction.SWAP)
+    mods = 'ALT'
   end
 
   return {
@@ -45,12 +47,23 @@ local nvim_pane_action_key = function(pane_action, pane_direction)
       else
         if pane_action == PaneAction.MOVE then
           action = act.ActivatePaneDirection(action_direction)
-        else
-          assert(pane_action == PaneAction.RESIZE)
+        elseif pane_action == PaneAction.RESIZE then
           action = act.AdjustPaneSize { action_direction, 2 };
+        else
+          assert(pane_action == PaneAction.SWAP)
+
+          local success, result = pcall(function()
+            return act.SwapActivePaneDirection { direction = action_direction, keep_focus = true };
+          end)
+
+          if success then
+            action = result
+          end
         end
       end
-      window:perform_action(action, pane)
+      if action ~= nil then
+        window:perform_action(action, pane)
+      end
     end)
   }
 end
@@ -196,6 +209,7 @@ M.keys = {
   },
   nvim_pane_action_all_directions(PaneAction.MOVE),
   nvim_pane_action_all_directions(PaneAction.RESIZE),
+  nvim_pane_action_all_directions(PaneAction.SWAP),
 
   standard_keymaps { key = 'z', shift_key = 'Z', action = act.TogglePaneZoomState },
 
