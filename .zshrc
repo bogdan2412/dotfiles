@@ -6,7 +6,9 @@ export ZSH=$HOME/.zsh/oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="agnoster"
-DEFAULT_USER="bogdan2412"
+if [[ -z "$WEZTERM_PANE" ]]; then
+  DEFAULT_USER="bogdan2412"
+fi
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
