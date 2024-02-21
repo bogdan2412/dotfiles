@@ -130,3 +130,12 @@ if ! typeset -f omz_termsupport_cwd > /dev/null; then
 
   add-zsh-hook precmd omz_termsupport_cwd
 fi
+
+function tmux_user_var {
+  if [[ -n "$TMUX" ]]; then
+    printf "\ePtmux;\e\e]1337;SetUserVar=IS_TMUX=dHJ1ZQ==\e\e\\\\\e\\"
+  else
+    printf "\e]1337;SetUserVar=IS_TMUX=ZmFsc2U=\e\\"
+  fi
+}
+PROMPT="$PROMPT"'%{$(tmux_user_var)%}'

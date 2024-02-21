@@ -41,8 +41,9 @@ local nvim_pane_action_key = function(pane_action, pane_direction)
     mods = mods,
     action = wezterm.action_callback(function(window, pane)
       local is_vim = pane:get_user_vars().IS_NVIM == 'true'
+      local is_tmux = pane:get_user_vars().IS_TMUX == 'true'
       local action
-      if is_vim then
+      if is_vim or is_tmux then
         action = act.SendKey { key = key, mods = mods }
       else
         if pane_action == PaneAction.MOVE then
