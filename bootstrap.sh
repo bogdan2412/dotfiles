@@ -25,6 +25,7 @@ fi
 
 PACKAGES_MINIMAL="
   .config/tmux
+  .config/wezterm
   .zsh
 "
 PACKAGES_OTHER="
