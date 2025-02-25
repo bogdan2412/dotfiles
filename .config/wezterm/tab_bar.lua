@@ -152,7 +152,7 @@ function M.update_status(window, pane)
       {
         fg_color = onedark.black,
         bg_color = onedark.red,
-        subcells = {}
+        subcells = { window:active_key_table() }
       },
       {
         fg_color = onedark.black,

@@ -3,8 +3,6 @@ local act = wezterm.action
 
 local M = {}
 
-M.leader = { key = 'w', mods = 'CTRL', timeout_milliseconds = 1000 }
-
 local PaneAction = { MOVE = {}, RESIZE = {}, SWAP = {} }
 local PaneDirection = { LEFT = {}, RIGHT = {}, DOWN = {}, UP = {} }
 
@@ -161,53 +159,6 @@ M.keys = {
     { key = '9',        mods = 'CTRL',        action = act.ActivateTab(-1) },
   },
 
-  {
-    {
-      key = 'w',
-      mods = 'LEADER|CTRL',
-      action = act.SendKey { key = 'w', mods = 'CTRL' },
-    },
-    {
-      key = '\\',
-      mods = 'LEADER',
-      action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
-    },
-    {
-      key = '-',
-      mods = 'LEADER',
-      action = act.SplitVertical { domain = 'CurrentPaneDomain' },
-    },
-
-    {
-      key = 'd',
-      mods = 'LEADER',
-      action = act.DetachDomain 'CurrentPaneDomain',
-    },
-
-    {
-      key = 'c',
-      mods = 'LEADER',
-      action = act.PromptInputLine {
-        description = wezterm.format {
-          { Attribute = { Intensity = 'Bold' } },
-          { Foreground = { Color = require('onedark').blue } },
-          { Text = 'Enter name for new workspace' },
-        },
-        action = wezterm.action_callback(function(window, pane, line)
-          if line ~= nil then
-            if line ~= '' then
-              window:perform_action(act.SwitchToWorkspace { name = line }, pane)
-            else
-              window:perform_action(act.SwitchToWorkspace {}, pane)
-            end
-          end
-        end),
-      },
-    },
-    { key = 'n', mods = 'LEADER', action = act.SwitchWorkspaceRelative(1) },
-    { key = 'p', mods = 'LEADER', action = act.SwitchWorkspaceRelative(-1) },
-    { key = 'l', mods = 'LEADER', action = act.ShowLauncherArgs { flags = 'WORKSPACES' } },
-  },
   nvim_pane_action_all_directions(PaneAction.MOVE),
   nvim_pane_action_all_directions(PaneAction.RESIZE),
   nvim_pane_action_all_directions(PaneAction.SWAP),
@@ -238,10 +189,72 @@ M.keys = {
 
     { key = 'phys:Space', mods = 'SHIFT|CTRL', action = act.QuickSelect },
   },
+
+  {
+    {
+      key = 'w',
+      mods = 'CTRL',
+      action = act.ActivateKeyTable {
+        name = "leader_key",
+        timeout_milliseconds = 1000,
+        one_shot = true,
+        until_unknown = true,
+        prevent_fallback = true
+      }
+    },
+  },
+}
+
+M.leader_key_table = {
+  {
+    key = '\\',
+    action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
+  },
+  {
+    key = '-',
+    action = act.SplitVertical { domain = 'CurrentPaneDomain' },
+  },
+
+  {
+    key = 'd',
+    action = act.DetachDomain 'CurrentPaneDomain',
+  },
+
+  {
+    key = 'c',
+    action = act.PromptInputLine {
+      description = wezterm.format {
+        { Attribute = { Intensity = 'Bold' } },
+        { Foreground = { Color = require('onedark').blue } },
+        { Text = 'Enter name for new workspace' },
+      },
+      action = wezterm.action_callback(function(window, pane, line)
+        if line ~= nil then
+          if line ~= '' then
+            window:perform_action(act.SwitchToWorkspace { name = line }, pane)
+          else
+            window:perform_action(act.SwitchToWorkspace {}, pane)
+          end
+        end
+      end),
+    },
+  },
+  { key = 'n', action = act.SwitchWorkspaceRelative(1) },
+  { key = 'p', action = act.SwitchWorkspaceRelative(-1) },
+  { key = 'l', action = act.ShowLauncherArgs { flags = 'WORKSPACES' } },
+
+  {
+    key = 'w',
+    mods = 'CTRL',
+    action = act.SendKey { key = 'w', mods = 'CTRL' },
+  },
+  {
+    key = 'r',
+    action = act.ActivateKeyTable { name = 'raw_input', one_shot = false }
+  },
 }
 
 function M.init(config)
-  config.leader = M.leader
   config.disable_default_key_bindings = true
 
   local keys = {}
@@ -250,7 +263,23 @@ function M.init(config)
       table.insert(keys, keymap)
     end
   end
+
+  local raw_input_table = {
+    { key = 'Escape', mods = '', action = 'PopKeyTable' },
+  }
+  for _, item in ipairs(keys) do
+    table.insert(raw_input_table, {
+      key = item.key,
+      mods = item.mods,
+      action = act.SendKey { key = item.key, mods = item.mods }
+    })
+  end
+
   config.keys = keys
+  config.key_tables = {
+    leader_key = M.leader_key_table,
+    raw_input = raw_input_table
+  }
 
   config.mouse_bindings = {
     -- Change the default click behavior so that it only selects
