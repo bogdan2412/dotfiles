@@ -27,41 +27,39 @@ M.colors.new_tab = M.colors.inactive_tab
 M.colors.new_tab_hover = M.colors.inactive_tab_hover
 
 M.style = {
-  new_tab = wezterm.format(
-    powerline.render {
-      cells = {
-        {
-          fg_color = M.colors.background,
-          bg_color = M.colors.background,
-          subcells = {}
-        },
-        {
-          fg_color = M.colors.new_tab.fg_color,
-          bg_color = M.colors.new_tab.bg_color,
-          subcells = { '+' }
-        },
+  new_tab = wezterm.format(powerline.render {
+    cells = {
+      {
+        fg_color = M.colors.background,
+        bg_color = M.colors.background,
+        subcells = {},
       },
-      alignment = powerline.Alignment.LEFT,
-      edge_bg_color = M.colors.background,
-    }),
+      {
+        fg_color = M.colors.new_tab.fg_color,
+        bg_color = M.colors.new_tab.bg_color,
+        subcells = { '+' },
+      },
+    },
+    alignment = powerline.Alignment.LEFT,
+    edge_bg_color = M.colors.background,
+  }),
 
-  new_tab_hover = wezterm.format(
-    powerline.render {
-      cells = {
-        {
-          fg_color = M.colors.background,
-          bg_color = M.colors.background,
-          subcells = {}
-        },
-        {
-          fg_color = M.colors.new_tab_hover.fg_color,
-          bg_color = M.colors.new_tab_hover.bg_color,
-          subcells = { '+' }
-        },
+  new_tab_hover = wezterm.format(powerline.render {
+    cells = {
+      {
+        fg_color = M.colors.background,
+        bg_color = M.colors.background,
+        subcells = {},
       },
-      alignment = powerline.Alignment.LEFT,
-      edge_bg_color = M.colors.background
-    }),
+      {
+        fg_color = M.colors.new_tab_hover.fg_color,
+        bg_color = M.colors.new_tab_hover.bg_color,
+        subcells = { '+' },
+      },
+    },
+    alignment = powerline.Alignment.LEFT,
+    edge_bg_color = M.colors.background,
+  }),
 }
 
 function M.format_tab_title(tab, tabs, panes, window_config, hover, max_width)
@@ -92,12 +90,12 @@ function M.format_tab_title(tab, tabs, panes, window_config, hover, max_width)
     {
       fg_color = window_config.colors.tab_bar.background,
       bg_color = window_config.colors.tab_bar.background,
-      subcells = {}
+      subcells = {},
     },
     {
       fg_color = fg_color,
       bg_color = bg_color,
-      subcells = { tab_index, title }
+      subcells = { tab_index, title },
     },
   }
 
@@ -152,17 +150,17 @@ function M.update_status(window, pane)
       {
         fg_color = onedark.black,
         bg_color = onedark.red,
-        subcells = { window:active_key_table() }
+        subcells = { window:active_key_table() },
       },
       {
         fg_color = onedark.black,
         bg_color = onedark.yellow,
-        subcells = { pane:get_domain_name() }
+        subcells = { pane:get_domain_name() },
       },
       {
         fg_color = onedark.black,
         bg_color = onedark.green,
-        subcells = { hostname }
+        subcells = { hostname },
       },
     },
     alignment = powerline.Alignment.LEFT,
@@ -183,17 +181,17 @@ function M.update_status(window, pane)
       {
         fg_color = onedark.white,
         bg_color = onedark.black,
-        subcells = { time_of_day, date }
+        subcells = { time_of_day, date },
       },
       {
         fg_color = onedark.white,
         bg_color = onedark.visual_grey,
-        subcells = battery_infos
+        subcells = battery_infos,
       },
       {
         fg_color = onedark.black,
         bg_color = onedark.blue,
-        subcells = { window:active_workspace() }
+        subcells = { window:active_workspace() },
       },
     },
     alignment = powerline.Alignment.RIGHT,

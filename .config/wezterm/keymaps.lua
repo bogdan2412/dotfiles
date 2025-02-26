@@ -47,12 +47,12 @@ local nvim_pane_action_key = function(pane_action, pane_direction)
         if pane_action == PaneAction.MOVE then
           action = act.ActivatePaneDirection(action_direction)
         elseif pane_action == PaneAction.RESIZE then
-          action = act.AdjustPaneSize { action_direction, 2 };
+          action = act.AdjustPaneSize { action_direction, 2 }
         else
           assert(pane_action == PaneAction.SWAP)
 
           local success, result = pcall(function()
-            return act.SwapActivePaneDirection { direction = action_direction, keep_focus = true };
+            return act.SwapActivePaneDirection { direction = action_direction, keep_focus = true }
           end)
 
           if success then
@@ -63,7 +63,7 @@ local nvim_pane_action_key = function(pane_action, pane_direction)
       if action ~= nil then
         window:perform_action(action, pane)
       end
-    end)
+    end),
   }
 end
 
@@ -82,10 +82,10 @@ local function standard_keymaps(args)
   local action = args.action
 
   return {
-    { key = key,       mods = 'SUPER',      action = action },
-    { key = key,       mods = 'SHIFT|CTRL', action = action },
+    { key = key, mods = 'SUPER', action = action },
+    { key = key, mods = 'SHIFT|CTRL', action = action },
     { key = shift_key, mods = 'SHIFT|CTRL', action = action },
-    { key = shift_key, mods = 'CTRL',       action = action },
+    { key = shift_key, mods = 'CTRL', action = action },
   }
 end
 
@@ -111,7 +111,7 @@ M.keys = flatten_keymap_group_array {
   standard_keymaps { key = 'c', shift_key = 'C', action = act.CopyTo 'Clipboard' },
   standard_keymaps { key = 'v', shift_key = 'V', action = act.PasteFrom 'Clipboard' },
   {
-    { key = 'Copy',  mods = 'NONE', action = act.CopyTo 'Clipboard' },
+    { key = 'Copy', mods = 'NONE', action = act.CopyTo 'Clipboard' },
     { key = 'Paste', mods = 'NONE', action = act.PasteFrom 'Clipboard' },
   },
 
@@ -122,51 +122,51 @@ M.keys = flatten_keymap_group_array {
   standard_keymaps {
     key = 'u',
     shift_key = 'U',
-    action = act.CharSelect { copy_on_select = true, copy_to = 'ClipboardAndPrimarySelection' }
+    action = act.CharSelect { copy_on_select = true, copy_to = 'ClipboardAndPrimarySelection' },
   },
 
   standard_keymaps { key = 'n', shift_key = 'N', action = act.SpawnWindow },
 
   {
-    { key = 't',        mods = 'SUPER',       action = act.SpawnTab 'CurrentPaneDomain' },
-    { key = 't',        mods = 'CTRL',        action = act.SpawnTab 'CurrentPaneDomain' },
+    { key = 't', mods = 'SUPER', action = act.SpawnTab 'CurrentPaneDomain' },
+    { key = 't', mods = 'CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
 
-    { key = ']',        mods = 'SHIFT|SUPER', action = act.ActivateTabRelative(1) },
-    { key = '}',        mods = 'SHIFT|SUPER', action = act.ActivateTabRelative(1) },
-    { key = '}',        mods = 'SUPER',       action = act.ActivateTabRelative(1) },
-    { key = 'Tab',      mods = 'CTRL',        action = act.ActivateTabRelative(1) },
-    { key = 'PageDown', mods = 'CTRL',        action = act.ActivateTabRelative(1) },
+    { key = ']', mods = 'SHIFT|SUPER', action = act.ActivateTabRelative(1) },
+    { key = '}', mods = 'SHIFT|SUPER', action = act.ActivateTabRelative(1) },
+    { key = '}', mods = 'SUPER', action = act.ActivateTabRelative(1) },
+    { key = 'Tab', mods = 'CTRL', action = act.ActivateTabRelative(1) },
+    { key = 'PageDown', mods = 'CTRL', action = act.ActivateTabRelative(1) },
 
-    { key = '[',        mods = 'SHIFT|SUPER', action = act.ActivateTabRelative(-1) },
-    { key = '{',        mods = 'SHIFT|SUPER', action = act.ActivateTabRelative(-1) },
-    { key = '{',        mods = 'SUPER',       action = act.ActivateTabRelative(-1) },
-    { key = 'Tab',      mods = 'SHIFT|CTRL',  action = act.ActivateTabRelative(-1) },
-    { key = 'PageUp',   mods = 'CTRL',        action = act.ActivateTabRelative(-1) },
+    { key = '[', mods = 'SHIFT|SUPER', action = act.ActivateTabRelative(-1) },
+    { key = '{', mods = 'SHIFT|SUPER', action = act.ActivateTabRelative(-1) },
+    { key = '{', mods = 'SUPER', action = act.ActivateTabRelative(-1) },
+    { key = 'Tab', mods = 'SHIFT|CTRL', action = act.ActivateTabRelative(-1) },
+    { key = 'PageUp', mods = 'CTRL', action = act.ActivateTabRelative(-1) },
 
-    { key = '.',        mods = 'SUPER',       action = act.MoveTabRelative(1) },
-    { key = 'PageDown', mods = 'SHIFT|CTRL',  action = act.MoveTabRelative(1) },
+    { key = '.', mods = 'SUPER', action = act.MoveTabRelative(1) },
+    { key = 'PageDown', mods = 'SHIFT|CTRL', action = act.MoveTabRelative(1) },
 
-    { key = ',',        mods = 'SUPER',       action = act.MoveTabRelative(-1) },
-    { key = 'PageUp',   mods = 'SHIFT|CTRL',  action = act.MoveTabRelative(-1) },
+    { key = ',', mods = 'SUPER', action = act.MoveTabRelative(-1) },
+    { key = 'PageUp', mods = 'SHIFT|CTRL', action = act.MoveTabRelative(-1) },
 
-    { key = '1',        mods = 'SUPER',       action = act.ActivateTab(0) },
-    { key = '1',        mods = 'CTRL',        action = act.ActivateTab(0) },
-    { key = '2',        mods = 'SUPER',       action = act.ActivateTab(1) },
-    { key = '2',        mods = 'CTRL',        action = act.ActivateTab(1) },
-    { key = '3',        mods = 'SUPER',       action = act.ActivateTab(2) },
-    { key = '3',        mods = 'CTRL',        action = act.ActivateTab(2) },
-    { key = '4',        mods = 'SUPER',       action = act.ActivateTab(3) },
-    { key = '4',        mods = 'CTRL',        action = act.ActivateTab(3) },
-    { key = '5',        mods = 'SUPER',       action = act.ActivateTab(4) },
-    { key = '5',        mods = 'CTRL',        action = act.ActivateTab(4) },
-    { key = '6',        mods = 'SUPER',       action = act.ActivateTab(5) },
-    { key = '6',        mods = 'CTRL',        action = act.ActivateTab(5) },
-    { key = '7',        mods = 'SUPER',       action = act.ActivateTab(6) },
-    { key = '7',        mods = 'CTRL',        action = act.ActivateTab(6) },
-    { key = '8',        mods = 'SUPER',       action = act.ActivateTab(7) },
-    { key = '8',        mods = 'CTRL',        action = act.ActivateTab(7) },
-    { key = '9',        mods = 'SUPER',       action = act.ActivateTab(-1) },
-    { key = '9',        mods = 'CTRL',        action = act.ActivateTab(-1) },
+    { key = '1', mods = 'SUPER', action = act.ActivateTab(0) },
+    { key = '1', mods = 'CTRL', action = act.ActivateTab(0) },
+    { key = '2', mods = 'SUPER', action = act.ActivateTab(1) },
+    { key = '2', mods = 'CTRL', action = act.ActivateTab(1) },
+    { key = '3', mods = 'SUPER', action = act.ActivateTab(2) },
+    { key = '3', mods = 'CTRL', action = act.ActivateTab(2) },
+    { key = '4', mods = 'SUPER', action = act.ActivateTab(3) },
+    { key = '4', mods = 'CTRL', action = act.ActivateTab(3) },
+    { key = '5', mods = 'SUPER', action = act.ActivateTab(4) },
+    { key = '5', mods = 'CTRL', action = act.ActivateTab(4) },
+    { key = '6', mods = 'SUPER', action = act.ActivateTab(5) },
+    { key = '6', mods = 'CTRL', action = act.ActivateTab(5) },
+    { key = '7', mods = 'SUPER', action = act.ActivateTab(6) },
+    { key = '7', mods = 'CTRL', action = act.ActivateTab(6) },
+    { key = '8', mods = 'SUPER', action = act.ActivateTab(7) },
+    { key = '8', mods = 'CTRL', action = act.ActivateTab(7) },
+    { key = '9', mods = 'SUPER', action = act.ActivateTab(-1) },
+    { key = '9', mods = 'CTRL', action = act.ActivateTab(-1) },
   },
 
   nvim_pane_action_all_directions(PaneAction.MOVE),
@@ -181,7 +181,7 @@ M.keys = flatten_keymap_group_array {
     action = act.Multiple {
       act.ClearScrollback 'ScrollbackAndViewport',
       act.SendKey { key = 'L', mods = 'CTRL' },
-    }
+    },
   },
 
   standard_keymaps { key = 'f', shift_key = 'F', action = act.Search 'CurrentSelectionOrEmptyString' },
@@ -189,13 +189,13 @@ M.keys = flatten_keymap_group_array {
   standard_keymaps { key = 'p', shift_key = 'P', action = act.ActivateCommandPalette },
 
   {
-    { key = 'Enter',      mods = 'ALT',        action = act.ToggleFullScreen },
+    { key = 'Enter', mods = 'ALT', action = act.ToggleFullScreen },
 
-    { key = 'PageDown',   mods = 'SHIFT',      action = act.ScrollByPage(1) },
-    { key = 'PageUp',     mods = 'SHIFT',      action = act.ScrollByPage(-1) },
+    { key = 'PageDown', mods = 'SHIFT', action = act.ScrollByPage(1) },
+    { key = 'PageUp', mods = 'SHIFT', action = act.ScrollByPage(-1) },
 
-    { key = 'DownArrow',  mods = 'SHIFT',      action = act.ScrollByLine(1) },
-    { key = 'UpArrow',    mods = 'SHIFT',      action = act.ScrollByLine(-1) },
+    { key = 'DownArrow', mods = 'SHIFT', action = act.ScrollByLine(1) },
+    { key = 'UpArrow', mods = 'SHIFT', action = act.ScrollByLine(-1) },
 
     { key = 'phys:Space', mods = 'SHIFT|CTRL', action = act.QuickSelect },
   },
@@ -205,12 +205,12 @@ M.keys = flatten_keymap_group_array {
       key = 'w',
       mods = 'CTRL',
       action = act.ActivateKeyTable {
-        name = "leader_key",
+        name = 'leader_key',
         timeout_milliseconds = 1000,
         one_shot = true,
         until_unknown = true,
-        prevent_fallback = true
-      }
+        prevent_fallback = true,
+      },
     },
   },
 }
@@ -265,7 +265,7 @@ M.leader_key_table = flatten_keymap_group_array {
 
   with_optional_ctrl {
     key = 'r',
-    action = act.ActivateKeyTable { name = 'raw_input', one_shot = false }
+    action = act.ActivateKeyTable { name = 'raw_input', one_shot = false },
   },
 
   {
@@ -273,7 +273,7 @@ M.leader_key_table = flatten_keymap_group_array {
       key = 'w',
       mods = 'CTRL',
       action = act.SendKey { key = 'w', mods = 'CTRL' },
-    }
+    },
   },
 }
 
@@ -287,14 +287,14 @@ function M.init(config)
     table.insert(raw_input_table, {
       key = item.key,
       mods = item.mods,
-      action = act.SendKey { key = item.key, mods = item.mods }
+      action = act.SendKey { key = item.key, mods = item.mods },
     })
   end
 
   config.keys = M.keys
   config.key_tables = {
     leader_key = M.leader_key_table,
-    raw_input = raw_input_table
+    raw_input = raw_input_table,
   }
 
   config.mouse_bindings = {

@@ -11,16 +11,16 @@ function M.unix_domain(args)
     remote_wezterm_path = args.remote_wezterm_path
   end
 
-  local cmd = { "ssh", "-TAC", name }
+  local cmd = { 'ssh', '-TAC', name }
   if args.port ~= nil then
-    table.insert(cmd, "-p")
+    table.insert(cmd, '-p')
     table.insert(cmd, tostring(args.port))
   end
 
-  table.insert(cmd, "--")
+  table.insert(cmd, '--')
   table.insert(cmd, remote_wezterm_path)
-  table.insert(cmd, "cli")
-  table.insert(cmd, "proxy")
+  table.insert(cmd, 'cli')
+  table.insert(cmd, 'proxy')
 
   return { name = name, proxy_command = cmd }
 end
