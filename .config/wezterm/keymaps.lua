@@ -89,7 +89,17 @@ local function standard_keymaps(args)
   }
 end
 
-M.keys = {
+local function flatten_keymap_group_array(input)
+  local keys = {}
+  for _, keymap_group in ipairs(input) do
+    for _, keymap in ipairs(keymap_group) do
+      table.insert(keys, keymap)
+    end
+  end
+  return keys
+end
+
+M.keys = flatten_keymap_group_array {
   standard_keymaps { key = 'w', shift_key = 'W', action = act.CloseCurrentTab { confirm = true } },
   standard_keymaps { key = 'q', shift_key = 'Q', action = act.QuitApplication },
   standard_keymaps { key = 'h', shift_key = 'H', action = act.HideApplication },
@@ -205,22 +215,32 @@ M.keys = {
   },
 }
 
-M.leader_key_table = {
-  {
+local function with_optional_ctrl(args)
+  local key = args.key
+  local action = args.action
+
+  return {
+    { key = key, action = action },
+    { key = key, action = action, mods = 'CTRL' },
+  }
+end
+
+M.leader_key_table = flatten_keymap_group_array {
+  with_optional_ctrl {
     key = '\\',
     action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
   },
-  {
+  with_optional_ctrl {
     key = '-',
     action = act.SplitVertical { domain = 'CurrentPaneDomain' },
   },
 
-  {
+  with_optional_ctrl {
     key = 'd',
     action = act.DetachDomain 'CurrentPaneDomain',
   },
 
-  {
+  with_optional_ctrl {
     key = 'c',
     action = act.PromptInputLine {
       description = wezterm.format {
@@ -239,35 +259,31 @@ M.leader_key_table = {
       end),
     },
   },
-  { key = 'n', action = act.SwitchWorkspaceRelative(1) },
-  { key = 'p', action = act.SwitchWorkspaceRelative(-1) },
-  { key = 'l', action = act.ShowLauncherArgs { flags = 'WORKSPACES' } },
+  with_optional_ctrl { key = 'n', action = act.SwitchWorkspaceRelative(1) },
+  with_optional_ctrl { key = 'p', action = act.SwitchWorkspaceRelative(-1) },
+  with_optional_ctrl { key = 'l', action = act.ShowLauncherArgs { flags = 'WORKSPACES' } },
 
-  {
-    key = 'w',
-    mods = 'CTRL',
-    action = act.SendKey { key = 'w', mods = 'CTRL' },
-  },
-  {
+  with_optional_ctrl {
     key = 'r',
     action = act.ActivateKeyTable { name = 'raw_input', one_shot = false }
+  },
+
+  {
+    {
+      key = 'w',
+      mods = 'CTRL',
+      action = act.SendKey { key = 'w', mods = 'CTRL' },
+    }
   },
 }
 
 function M.init(config)
   config.disable_default_key_bindings = true
 
-  local keys = {}
-  for _, keymap_group in ipairs(M.keys) do
-    for _, keymap in ipairs(keymap_group) do
-      table.insert(keys, keymap)
-    end
-  end
-
   local raw_input_table = {
     { key = 'Escape', mods = '', action = 'PopKeyTable' },
   }
-  for _, item in ipairs(keys) do
+  for _, item in ipairs(M.keys) do
     table.insert(raw_input_table, {
       key = item.key,
       mods = item.mods,
@@ -275,7 +291,7 @@ function M.init(config)
     })
   end
 
-  config.keys = keys
+  config.keys = M.keys
   config.key_tables = {
     leader_key = M.leader_key_table,
     raw_input = raw_input_table
