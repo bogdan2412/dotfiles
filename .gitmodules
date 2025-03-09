@@ -4,8 +4,8 @@
 [submodule ".zsh/plugins/zsh-syntax-highlighting"]
 	path = .zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule ".emacs.d-with-spacemacs"]
-	path = .emacs.d-with-spacemacs
+[submodule ".emacs.d"]
+	path = .emacs.d
 	url = https://github.com/syl20bnr/spacemacs
 	branch = develop
 [submodule ".config/nvim"]

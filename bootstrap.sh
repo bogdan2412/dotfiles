@@ -5,7 +5,7 @@ set -eu
 REPOSITORY_PATH=$(dirname "$(readlink -f "$0")")
 
 usage() {
-  echo "USAGE: $0 [--minimal|--full|--full-no-spacemacs]"
+  echo "USAGE: $0 [--minimal|--full]"
   exit 1
 }
 
@@ -14,11 +14,8 @@ if [ "$#" -ne 1 ]; then
 fi
 
 MINIMAL=false
-SPACEMACS=true
 if [ "$1" = "--minimal" ]; then
   MINIMAL=true
-elif [ "$1" = "--full-no-spacemacs" ]; then
-  SPACEMACS=false
 elif [ "$1" != "--full" ]; then
   usage
 fi
@@ -43,6 +40,7 @@ PACKAGES_OTHER="
   .gtkrc-2.0
   .i3
   .i3status.conf
+  .spacemacs
   .zsh
   bin/chromium
   bin/create-toolboxes.sh
@@ -57,8 +55,8 @@ PACKAGES_OTHER="
 "
 
 if $MINIMAL; then
-  PACKAGES_CLEANUP="$PACKAGES_OTHER .spacemacs"
-  PACKAGES_INSTALL=$PACKAGES_MINIMAL
+  PACKAGES_CLEANUP="$PACKAGES_OTHER"
+  PACKAGES_INSTALL="$PACKAGES_MINIMAL"
 else
   PACKAGES_CLEANUP=""
   PACKAGES_INSTALL="$PACKAGES_MINIMAL $PACKAGES_OTHER"
@@ -116,18 +114,10 @@ for PACKAGE in $PACKAGES_CLEANUP; do
 done
 for PACKAGE in $PACKAGES_INSTALL; do
   if [ "$PACKAGE" = ".emacs.d" ]; then
-    if $SPACEMACS; then
-      install_link \
-        "$REPOSITORY_PATH/.emacs.d-with-spacemacs" "$HOME/.emacs.d"
-      install_link \
-        "$REPOSITORY_PATH/.spacemacs" "$HOME/.spacemacs"
-      install_link \
-        "$REPOSITORY_PATH/.spacemacs-layer" "$HOME/.emacs.d/private/bogdan"
-    else
-      install_link \
-        "$REPOSITORY_PATH/.emacs.d-without-spacemacs" "$HOME/.emacs.d"
-      cleanup_old_config "$HOME/.spacemacs"
-    fi
+    install_link \
+      "$REPOSITORY_PATH/.emacs.d" "$HOME/.emacs.d"
+    install_link \
+      "$REPOSITORY_PATH/.spacemacs-layer" "$HOME/.emacs.d/private/bogdan"
   elif [ "$PACKAGE" = ".config/tmux" ]; then
     cleanup_old_config "$HOME/.tmux.conf" "$PACKAGE"
     install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
