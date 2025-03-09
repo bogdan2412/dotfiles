@@ -26,7 +26,6 @@ PACKAGES_MINIMAL="
   .zsh
 "
 PACKAGES_OTHER="
-  .config/awesome
   .config/btop
   .config/dust
   .config/gtk-3.0/settings.ini
@@ -108,6 +107,7 @@ cleanup_old_config () {
   fi
 }
 
+cleanup_old_config "$HOME/.config/awesome"
 cleanup_old_config "$HOME/.screenrc"
 for PACKAGE in $PACKAGES_CLEANUP; do
   cleanup_old_config "$HOME/$PACKAGE"
