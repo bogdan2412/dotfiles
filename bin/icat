@@ -1,3 +1,8 @@
 #!/bin/sh
 
+if [ -n "${WEZTERM_UNIX_SOCKET:-}" ]; then
+    # Always default to [--transfer-mode file] when using WezTerm since it's most reliable.
+    set -- --transfer-mode file "${@}"
+fi
+
 exec kitty +kitten icat "${@}"
