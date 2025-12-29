@@ -1,9 +1,3 @@
 /.config/btop/btop.log
 /.config/wezterm/local_machine.lua
-/.emacs.d-without-spacemacs/abbrev_defs
-/.emacs.d-without-spacemacs/ac-comphist.dat
-/.emacs.d-without-spacemacs/auto-save-list
-/.emacs.d-without-spacemacs/elpa/archives
-/.emacs.d-without-spacemacs/elpa/gnupg
-/.emacs.d-without-spacemacs/ido.last
-*.elc
+/.direnv/
