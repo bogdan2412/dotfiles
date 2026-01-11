@@ -21,6 +21,7 @@ elif [ "$1" != "--full" ]; then
 fi
 
 PACKAGES_MINIMAL="
+  .config/nvim
   .config/tmux
   .config/wezterm
   .zsh
@@ -31,7 +32,6 @@ PACKAGES_OTHER="
   .config/gtk-3.0/settings.ini
   .config/kitty
   .config/lsd
-  .config/nvim
   .config/tmux
   .config/wezterm
   .emacs.d
