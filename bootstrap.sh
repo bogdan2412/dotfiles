@@ -20,36 +20,8 @@ elif [ "$1" != "--full" ]; then
   usage
 fi
 
-PACKAGES_MINIMAL="
-  .config/nvim
-  .config/tmux
-  .config/wezterm
-  .zsh
-"
-PACKAGES_OTHER="
-  .config/btop
-  .config/dust
-  .config/gtk-3.0/settings.ini
-  .config/kitty
-  .config/lsd
-  .config/tmux
-  .config/wezterm
-  .gitconfig
-  .gtkrc-2.0
-  .i3
-  .i3status.conf
-  .zsh
-  bin/chromium
-  bin/create-toolboxes.sh
-  bin/git-patdiff
-  bin/git-svn-diff
-  bin/i3-emulate-awesomewm-workspaces.py
-  bin/icat
-  bin/signal
-  bin/steam
-  bin/update-toolboxes.sh
-  bin/vimdiff
-"
+PACKAGES_MINIMAL=$(cat "$REPOSITORY_PATH/PACKAGES_MINIMAL")
+PACKAGES_OTHER=$(cat "$REPOSITORY_PATH/PACKAGES_OTHER")
 
 if $MINIMAL; then
   PACKAGES_CLEANUP="$PACKAGES_OTHER"

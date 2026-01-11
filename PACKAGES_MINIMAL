@@ -1,0 +1,4 @@
+.config/nvim
+.config/tmux
+.config/wezterm
+.zsh
