@@ -34,12 +34,10 @@ PACKAGES_OTHER="
   .config/lsd
   .config/tmux
   .config/wezterm
-  .emacs.d
   .gitconfig
   .gtkrc-2.0
   .i3
   .i3status.conf
-  .spacemacs
   .zsh
   bin/chromium
   bin/create-toolboxes.sh
@@ -108,27 +106,18 @@ cleanup_old_config () {
 }
 
 cleanup_old_config "$HOME/.config/awesome"
+cleanup_old_config "$HOME/.emacs.d"
 cleanup_old_config "$HOME/.screenrc"
+cleanup_old_config "$HOME/.spacemacs"
+cleanup_old_config "$HOME/.tmux.conf"
+cleanup_old_config "$HOME/.vim"
+cleanup_old_config "$HOME/.vimrc"
+rm -f "$HOME/.viminfo"
 for PACKAGE in $PACKAGES_CLEANUP; do
   cleanup_old_config "$HOME/$PACKAGE"
 done
 for PACKAGE in $PACKAGES_INSTALL; do
-  if [ "$PACKAGE" = ".emacs.d" ]; then
-    install_link \
-      "$REPOSITORY_PATH/.emacs.d" "$HOME/.emacs.d"
-    install_link \
-      "$REPOSITORY_PATH/.spacemacs-layer" "$HOME/.emacs.d/private/bogdan"
-  elif [ "$PACKAGE" = ".config/tmux" ]; then
-    cleanup_old_config "$HOME/.tmux.conf" "$PACKAGE"
-    install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
-  elif [ "$PACKAGE" = ".config/nvim" ]; then
-    cleanup_old_config "$HOME/.vim" "$PACKAGE"
-    cleanup_old_config "$HOME/.vimrc" "$PACKAGE"
-    rm -f "$HOME/.viminfo"
-    install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
-  else
-    install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
-  fi
+  install_link "$REPOSITORY_PATH/$PACKAGE" "$HOME/$PACKAGE"
 done
 
 echo "Installing all snippet packages"

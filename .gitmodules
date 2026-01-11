@@ -7,10 +7,6 @@
 [submodule ".zsh/plugins/zsh-syntax-highlighting"]
 	path = .zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule ".emacs.d"]
-	path = .emacs.d
-	url = https://github.com/syl20bnr/spacemacs
-	branch = develop
 [submodule ".config/nvim"]
 	path = .config/nvim
 	url = https://github.com/bogdan2412/kickstart.nvim.git
