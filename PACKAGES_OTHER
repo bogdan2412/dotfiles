@@ -1,11 +1,11 @@
 .config/btop
 .config/dust
+.config/git
 .config/gtk-3.0/settings.ini
 .config/kitty
 .config/lsd
 .config/tmux
 .config/wezterm
-.gitconfig
 .gtkrc-2.0
 .i3
 .i3status.conf

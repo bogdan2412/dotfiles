@@ -79,6 +79,7 @@ cleanup_old_config () {
 
 cleanup_old_config "$HOME/.config/awesome"
 cleanup_old_config "$HOME/.emacs.d"
+cleanup_old_config "$HOME/.gitconfig"
 cleanup_old_config "$HOME/.screenrc"
 cleanup_old_config "$HOME/.spacemacs"
 cleanup_old_config "$HOME/.tmux.conf"
