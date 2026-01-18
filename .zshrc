@@ -75,7 +75,8 @@ source $ZSH/oh-my-zsh.sh
 
 unset HISTSIZE
 unset SAVEHIST
-setopt inc_append_history auto_cd extended_glob no_match notify
+setopt AUTO_CD EXTENDED_GLOB NO_MATCH NOTIFY
+setopt INC_APPEND_HISTORY HIST_IGNORE_ALL_DUPS HIST_SAVE_NO_DUPS HIST_FIND_NO_DUPS
 bindkey -e
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern root)
