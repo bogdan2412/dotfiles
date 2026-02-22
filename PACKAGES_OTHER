@@ -2,9 +2,11 @@
 .config/dust
 .config/git
 .config/gtk-3.0/settings.ini
+.config/hypr
 .config/kitty
 .config/lsd
 .config/tmux
+.config/waybar
 .config/wezterm
 .gtkrc-2.0
 .i3

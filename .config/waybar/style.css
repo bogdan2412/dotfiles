@@ -1,0 +1,225 @@
+@define-color text #c0caf5;
+@define-color background #24283b;
+@define-color aqua #c0caf5;
+@define-color blue #7aa2f7;
+@define-color blue-dark #4a80f4;
+@define-color green #c3e88d;
+@define-color red #f7768e;
+@define-color red-dark #c53b53;
+@define-color yellow #e0af68;
+@define-color purple #9d7cd8;
+
+* {
+    font-family: MesloLGM Nerd Font Propo;
+    font-size: 13px;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: @text;
+}
+
+.modules-left, .modules-center, .modules-right {
+    margin: 0.5em 0.5em 0 0.5em;
+}
+
+#custom-launcher,
+#submap,
+#window,
+#idle_inhibitor,
+#power-profiles-daemon,
+#wireplumber,
+#network,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#battery,
+#clock,
+#tray {
+    background-color: @background;
+    border-radius: 1em;
+    padding: 0 0.75em;
+}
+
+#custom-launcher:hover {
+    color: @background;
+    background: @blue-dark;
+}
+
+#workspaces button {
+    padding: 0 0.5em;
+    background: @background;
+    color: @text;
+
+    /* Clear default styles. */
+    border: none;
+    border-radius: 0;
+    text-shadow: none;
+    box-shadow: none;
+    transition: none;
+}
+
+#workspaces button:first-child {
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    padding-left: 0.75em;
+}
+
+#workspaces button:last-child {
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    padding-right: 0.75em;
+}
+
+#workspaces button.focused, #workspaces button.active {
+    background-color: @blue;
+    color: @background;
+}
+
+#workspaces button:hover {
+    color: @background;
+    background: @blue-dark;
+}
+
+#workspaces button.urgent {
+    color: @background;
+    background-color: @yellow;
+}
+
+#submap {
+    background-color: @red-dark;
+    color: white;
+}
+
+window#waybar.empty #window {
+    background: transparent;
+}
+
+#idle_inhibitor.activated {
+    background-color: @blue;
+    color: @background;
+}
+
+#idle_inhibitor:hover {
+    background-color: @blue-dark;
+    color: @background;
+}
+
+#power-profiles-daemon.performance {
+    color: @red;
+}
+
+#power-profiles-daemon.performance:hover {
+    background-color: @red;
+    color: @background;
+}
+
+#power-profiles-daemon.balanced {
+    color: @blue;
+}
+
+#power-profiles-daemon.balanced:hover {
+    background-color: @blue;
+    color: @background;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @green;
+}
+
+#power-profiles-daemon.power-saver:hover {
+    background-color: @green;
+    color: @background;
+}
+
+#wireplumber {
+    color: @yellow;
+}
+
+#wireplumber:hover {
+    background-color: @yellow;
+    color: @background;
+}
+
+#wireplumber.muted {
+    color: @red;
+}
+
+#wireplumber.muted:hover {
+    background-color: @red;
+    color: @background;
+}
+
+#network {
+    color: @green;
+}
+
+#network.disconnected, #network.linked {
+    color: @red;
+}
+
+#cpu {
+    color: @blue;
+}
+
+#memory {
+    color: @aqua;
+}
+
+#disk {
+    color: @purple;
+}
+
+#temperature {
+    color: @red;
+}
+
+#temperature.critical {
+    background-color: @red;
+    color: @background;
+}
+
+#backlight {
+    color: @aqua;
+}
+
+#battery {
+    color: @green;
+}
+
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.critical {
+    color: @red;
+}
+
+@keyframes blink {
+    50% {
+        background-color: @red;
+        color: @background;
+    }
+}
+
+#battery.critical.discharging {
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: steps(2);
+    animation-iteration-count: infinite;
+}
+
+#clock {
+    color: @blue;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @yellow;
+}
