@@ -1,10 +1,11 @@
 .config/btop
 .config/dust
 .config/git
-.config/gtk-3.0/settings.ini
+.config/gtk-3.0
 .config/hypr
 .config/kitty
 .config/lsd
+.config/opencode
 .config/tmux
 .config/waybar
 .config/wezterm
